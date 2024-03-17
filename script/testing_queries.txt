@@ -1,0 +1,38 @@
+
+For multi polygon state :
+
+const multiPolygon = db.states.findOne({ STUSPS: 'CO' }).geometry.coordinates;
+multiPolygon.forEach(polygon => {
+    const sightingsWithinPolygon = db.sightings2.find({
+        location: {
+            $geoWithin: {
+                $geometry: {
+                    type: "Polygon",
+                    coordinates: polygon
+                }
+            }
+        }
+    });
+
+    sightingsWithinPolygon.forEach(sighting => {
+        printjson(sighting);
+    });
+});
+
+For Single Polygon state:
+
+const statePolygon = db.states.findOne({ STUSPS: 'CO' }).geometry.coordinates;
+const sightingsWithinPolygon = db.sightings2.find({
+    location: {
+        $geoWithin: {
+            $geometry: {
+                type: "Polygon",
+                coordinates: statePolygon
+            }
+        }
+    }
+});
+sightingsWithinPolygon.forEach(sighting => {
+    // Do something with each sighting document
+    printjson(sighting);
+});
