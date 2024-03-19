@@ -36,7 +36,5 @@ We utilize three primary datasets in our analysis:
 
 This repository contains the datasets, code, and analysis pertaining to our project. Here's how you can navigate through and make the most of our work:
 
-- `data/`: Contains raw and processed datasets used in our analysis.
-- `src/`: Source code for data preprocessing, analysis, and visualization.
-- `docs/`: Documentation and reports detailing our findings and methodology.
-- `images/`: Folder containing images and figures generated from our analysis.
+- `notebooks/`: TBD
+- `scripts/`: TBD
