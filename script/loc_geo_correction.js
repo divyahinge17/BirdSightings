@@ -1,9 +1,7 @@
 const connection = new Mongo(`localhost:27017`);
 db = connection.getDB(`flock`);
 sightings1 = db.getCollection(`sightings`);
-sightings1.aggregate([{$out: "sightings2"}]);
-sightings2 = db.getCollection(`sightings2`);
-sightings2.updateMany(
+sightings1.updateMany(
     {},
     [
         {
