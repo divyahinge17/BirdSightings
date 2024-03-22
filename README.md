@@ -36,5 +36,9 @@ We utilize three primary datasets in our analysis:
 
 This repository contains the datasets, code, and analysis pertaining to our project. Here's how you can navigate through and make the most of our work:
 
-- `notebooks/`: TBD
+- `notebooks/`-
+    - Run `Data_Insertion_Script_v2.ipynb` for inserting data into flock database
+    - Run `ImageSelection.ipynb` for fetching one image per bird
 - `scripts/`: TBD
+    - Run `loc_geo_correction.js` for geo locations update
+    - Run `image_insertion.sh` to insert bird images into dataset.
