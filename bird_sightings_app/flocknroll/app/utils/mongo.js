@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 export default async function dbConnection() {
-  const client = new MongoClient("mongodb://localhost:27017", {
+  const client = new MongoClient(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
