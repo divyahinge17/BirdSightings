@@ -82,34 +82,14 @@ if (birdData) {
           n_locations: 1,
           scientific_name: 1,
           american_english_name: 1,
-          "related_sightings.LOC_ID": 1,
-          "related_sightings.LATITUDE": 1,
-          "related_sightings.LONGITUDE": 1,
-          "related_sightings.SUBNATIONAL1_CODE": 1,
-          "related_sightings.ENTRY_TECHNIQUE": 1,
-          "related_sightings.SUB_ID": 1,
-          "related_sightings.OBS_ID": 1,
-          "related_sightings.Month": 1,
-          "related_sightings.Day": 1,
-          "related_sightings.Year": 1,
-          "related_sightings.PROJ_PERIOD_ID": 1,
-          "related_sightings.SPECIES_CODE": 1,
-          "related_sightings.alt_full_spp_code": 1,
-          "related_sightings.HOW_MANY": 1,
-          "related_sightings.PLUS_CODE": 1,
-          "related_sightings.VALID": 1,
-          'related_sightings.REVIEWED': 1,
-          "related_sightings.DAY1_AM": 1,
-          "related_sightings.DAY1_PM": 1,
-          "related_sightings.DAY2_AM": 1,
-          "related_sightings.DAY2_PM": 1,
-          "related_sightings.EFFORT_HRS_ATLEAST": 1,
-          "related_sightings.SNOW_DEP_ATLEAST": 1,
-          "related_sightings.Data_Entry_Method": 1
+          related_sightings: {
+            $slice: {
+              [
+                "$related_sightings", 3
+              ]
+            }
+          }
         }
-      },
-      {
-        $limit: 3
       }
     ]);
   
@@ -121,6 +101,31 @@ else {
     print(`No birds found with the name ${bird_name}`);
 }
 
+
+          // "related_sightings.LOC_ID": 1,
+          // "related_sightings.LATITUDE": 1,
+          // "related_sightings.LONGITUDE": 1,
+          // "related_sightings.SUBNATIONAL1_CODE": 1,
+          // "related_sightings.ENTRY_TECHNIQUE": 1,
+          // "related_sightings.SUB_ID": 1,
+          // "related_sightings.OBS_ID": 1,
+          // "related_sightings.Month": 1,
+          // "related_sightings.Day": 1,
+          // "related_sightings.Year": 1,
+          // "related_sightings.PROJ_PERIOD_ID": 1,
+          // "related_sightings.SPECIES_CODE": 1,
+          // "related_sightings.alt_full_spp_code": 1,
+          // "related_sightings.HOW_MANY": 1,
+          // "related_sightings.PLUS_CODE": 1,
+          // "related_sightings.VALID": 1,
+          // 'related_sightings.REVIEWED': 1,
+          // "related_sightings.DAY1_AM": 1,
+          // "related_sightings.DAY1_PM": 1,
+          // "related_sightings.DAY2_AM": 1,
+          // "related_sightings.DAY2_PM": 1,
+          // "related_sightings.EFFORT_HRS_ATLEAST": 1,
+          // "related_sightings.SNOW_DEP_ATLEAST": 1,
+          // "related_sightings.Data_Entry_Method": 1
 
 
 
