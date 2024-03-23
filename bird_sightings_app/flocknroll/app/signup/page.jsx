@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { saveUser } from '../api/request';
 
-function Login() {
+function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,4 +51,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

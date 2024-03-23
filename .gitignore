@@ -7,4 +7,5 @@ __pycache__/
 
 dataset/
 
-.env.local
+**/.env.local
+**/package-lock.json
