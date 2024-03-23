@@ -1,6 +1,6 @@
 const conn = new Mongo(`localhost:27017`),
     db = conn.getDB(`flock`),
-    sightings = db.getCollection(`sightings2`),
+    sightings = db.getCollection(`sightings`),
     birds = db.getCollection(`birds`),
     sites = db.getCollection(`sites`),
     counties = db.getCollection(`counties`),
@@ -12,34 +12,6 @@ const conn = new Mongo(`localhost:27017`),
 all_birds = birds.findOne();
 
 print(all_birds);
-
-print("--------------------------------------------------------------");
-
-// search_by_bird = birds.aggregate(
-//     [
-//         {$match: {"american_english_name": 'Greater Rhea'}},
-//         {
-//             $lookup: {
-//                 from: "sightings2",
-//                 localField: "SPECIES_CODE",
-//                 foreignField: "species_code",
-//                 as: "sightings_info"
-//             }
-//         },
-//         {
-//             $unwind: "$sighting_info"
-//         },
-//         {
-//             $group: {
-//                 _id: "$species_code",
-//                 count: {$sum: 1},
-//                 sightings: {$push: "$sighting_info"}
-//             }
-//         }
-//     ]
-// );
-
-// print(search_by_bird);
 
 print("----------------------------------------------------------");
 
@@ -71,10 +43,25 @@ birdData = birds.find({
 
 print(birdData);
 
+
+print("____________________________________________________________");
+
+// print("searching the species code in the sightings collection");
+// birdSighting = sightings.find({
+//   SPECIES_CODE: "egygoo"
+// });
+
+// print(birdSighting);
+
+// print(birdData.species_code);
+
+
+print("____________________________________________________________");
+
 print("for the selected bird get all the information");
 // Check if birdData is not null
 if (birdData) {
-    const bird_species_code = birdData.species_code;
+    const bird_species_code = 'egygoo';
   
     // Now, use the species code to find all related sightings
     const results = birds.aggregate([
@@ -90,12 +77,41 @@ if (birdData) {
       {
         $project: {
           _id: 0,
-          "related_sightings.species_code": 1,
-          "related_sightings.american_english_name": 1,
-          related_sightings: 1
+          species_code: 1,
+          alt_full_spp_code: 1,
+          n_locations: 1,
+          scientific_name: 1,
+          american_english_name: 1,
+          "related_sightings.LOC_ID": 1,
+          "related_sightings.LATITUDE": 1,
+          "related_sightings.LONGITUDE": 1,
+          "related_sightings.SUBNATIONAL1_CODE": 1,
+          "related_sightings.ENTRY_TECHNIQUE": 1,
+          "related_sightings.SUB_ID": 1,
+          "related_sightings.OBS_ID": 1,
+          "related_sightings.Month": 1,
+          "related_sightings.Day": 1,
+          "related_sightings.Year": 1,
+          "related_sightings.PROJ_PERIOD_ID": 1,
+          "related_sightings.SPECIES_CODE": 1,
+          "related_sightings.alt_full_spp_code": 1,
+          "related_sightings.HOW_MANY": 1,
+          "related_sightings.PLUS_CODE": 1,
+          "related_sightings.VALID": 1,
+          'related_sightings.REVIEWED': 1,
+          "related_sightings.DAY1_AM": 1,
+          "related_sightings.DAY1_PM": 1,
+          "related_sightings.DAY2_AM": 1,
+          "related_sightings.DAY2_PM": 1,
+          "related_sightings.EFFORT_HRS_ATLEAST": 1,
+          "related_sightings.SNOW_DEP_ATLEAST": 1,
+          "related_sightings.Data_Entry_Method": 1
         }
+      },
+      {
+        $limit: 3
       }
-    ]).toArray();
+    ]);
   
     print(results);
     // Print the results
@@ -104,6 +120,9 @@ if (birdData) {
 else {
     print(`No birds found with the name ${bird_name}`);
 }
+
+
+
 
 // // Search by Bird
 // const bird_name = `Abert's Towhee`;
