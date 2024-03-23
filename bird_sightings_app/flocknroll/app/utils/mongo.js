@@ -1,27 +1,15 @@
-import mongoose from "mongoose";
+import { MongoClient } from 'mongodb';
 
-let cached = global.mongo;
+export default async function dbConnection() {
+  const client = new MongoClient("mongodb://localhost:27017", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-if (!cached) {
-  cached = global.mongo = async () => {
-    if (!process.env.MONGODB_URI) {
-      throw new Error("Please define the MONGODB_URI environment variable");
-    }
+  await client.connect();
+  const database = client.db('flock'); // Choose a name for your database
 
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true, // For Mongoose v5 and above
-    });
+  console.log(database);
 
-    return db;
-  };
+  return database;
 }
-
-export default cached;
-
-// import cached from './lib/mongo';
-// async function myFunction() {
-//     const db = await cached();
-//     // Use the 'db' object for your MongoDB operations (queries, updates, etc.)
-//   }
