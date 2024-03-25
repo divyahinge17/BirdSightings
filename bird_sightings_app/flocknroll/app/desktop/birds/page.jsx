@@ -5,7 +5,7 @@ function MyPage() {
   return (
     <div>
       <h1>USA Map</h1>
-      <div id="map" style={{ height: '400px' }}></div> {/* Map container */}
+      <div id="map" ></div> {/* Map container */}
       <Map />
     </div>
   );
