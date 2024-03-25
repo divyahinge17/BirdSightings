@@ -1,12 +1,14 @@
 "use client;"
 import Link from 'next/link';
+import Login from './login/page';
 
 export default function Home() {
   return (
     <div>
-      <Link href="/login">Login</Link><br></br>
-      <Link href="/signup">SignUp</Link>
-      <Link href="/desktop/birds">SearchBird</Link>
+      <Login></Login>
+//       <Link href="/login">Login</Link><br></br>
+//       <Link href="/signup">SignUp</Link>
+//       <Link href="/desktop/birds">SearchBird</Link>
     </div>
   );
 }
