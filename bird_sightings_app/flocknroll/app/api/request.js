@@ -13,3 +13,16 @@ export async function saveUser(username, email, password) {
     console.error('Error Saving data:', error);
   }
 }
+
+export async function getStateBoundaries() {
+  try {
+    const response = await axios.get('http://localhost:3002/stateBoundaries');
+    console.log(response.data);
+    return response.data
+  } catch (error) {
+    console.error('Error getting data:', error);
+  }
+}
+
+
+getStateBoundaries()
