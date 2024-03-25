@@ -22,9 +22,7 @@ export async function getUser(email, password) {
       email: email,
       password: password
     }
-    console.log(data)
     const response = await axios.post('http://localhost:3002/getUser', data);
-    console.log(response.data);
 
     return response.data;
   } catch (error) {

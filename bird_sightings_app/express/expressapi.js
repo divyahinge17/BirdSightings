@@ -55,7 +55,7 @@ app.post('/getUser', async (req, res) => {
     data = req.body
 
     if (!data.email || !data.password) {
-        res.send("Invalid Login Request!")
+        res.status(400).json({ message: "Invalid Login Request!" });
     } else {
         const users = db.collection('users');
         const result = await users.findOne({
@@ -64,9 +64,9 @@ app.post('/getUser', async (req, res) => {
         });
 
         if (!result) {
-            res.send("Invalid user Credentials!")
+            res.status(401).json({ message: "Invalid User Credentials!" });
         } else {
-            res.send("Login Successful!");
+            res.status(200).json({ message: "Login Successful!", data: result });
         }
     }
 });

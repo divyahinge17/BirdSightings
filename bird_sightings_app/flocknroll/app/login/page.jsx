@@ -2,24 +2,29 @@
 import React, { useState } from 'react';
 import { getUser } from '../api/request';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams()
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
-    // Call loginFunction with form data
     const response = await getUser(email, password);
 
-    if (response == "Login Successful!") {
-      setMessage(response);
-      router.push('/main');
+    const params = new URLSearchParams()
+    params.set('userName', response.data.name)
+    params.set('userEmail', response.data.email)
+
+    if (response.message == "Login Successful!") {
+      setMessage(response.message);
+      router.push('/main'+'?'+params.toString());
     } else {
-      setMessage(response);
+      setMessage(response.message);
     }
   };
 
