@@ -4,7 +4,7 @@ import Map from '../../components/Map';
 function MyPage() {
   return (
     <div>
-      <h1>USA Map</h1>
+      <h1>USA Map States</h1>
       <div id="map" ></div> {/* Map container */}
       <Map />
     </div>
