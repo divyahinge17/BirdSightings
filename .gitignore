@@ -6,3 +6,6 @@ node_modules/
 __pycache__/
 
 dataset/
+
+**/.env.local
+**/package-lock.json
