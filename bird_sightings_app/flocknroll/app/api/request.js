@@ -13,3 +13,14 @@ export async function saveUser(username, email, password) {
     console.error('Error Saving data:', error);
   }
 }
+
+export async function states() {
+  try {
+    const response = await axios.get('http://localhost:3002/states');
+    console.log(response)
+    return response.data;
+  } catch (error) {
+    console.error('Error Saving data:', error);
+  }
+}
+

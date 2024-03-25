@@ -38,3 +38,13 @@ app.post('/saveUser', async (req, res) => {
     res.send(result);
 });
 
+app.get('/states', async (req, res) => {
+    try {
+        const states = db.collection('states');
+        const result = await states.find({}).toArray();
+        console.log(result);
+        res.send(result);
+    } catch (error) {
+        console.error(error);
+    }
+});
