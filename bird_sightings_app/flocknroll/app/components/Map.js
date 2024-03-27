@@ -22,24 +22,25 @@ function MapStates() {
   const [stateData, setStateData] = useState([]);
   useEffect(() => {
     if (typeof window !== 'undefined') {
-    (async () => { // Wrap fetchData in an async IIFE
-      try {
-        const stateBoundaries = await getStateBoundaries();
-        const formattedData = stateBoundaries.map(convertData);
-        const data = {
-          type: "FeatureCollection",
-          features: formattedData
-        };
-        setStateData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setIsLoading(false); // Set loading to false after successful fetch or error
-      }
-    })(); // Invoke the IIFE immediately
-  }
+      (async () => { // Wrap fetchData in an async IIFE
+        try {
+          const stateBoundaries = await getStateBoundaries();
+          const formattedData = stateBoundaries.map(convertData);
+          const data = {
+            type: "FeatureCollection",
+            features: formattedData
+          };
+          setStateData(data);
+          console.log(stateData.features)
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setIsLoading(false); // Set loading to false after successful fetch or error
+        }
+      })(); // Invoke the IIFE immediately
+    }
   }, []);
- 
+
 
   return (
     <MapContainer center={[39.8283, -98.5795]} zoom={4}
@@ -55,14 +56,14 @@ function MapStates() {
           stateData.features.map((state, index) => {
             let coordinates;
             if (state.geometry.type === 'MultiPolygon') {
-              coordinates = state.geometry.coordinates.map(polygon => polygon[0]); 
+              coordinates = state.geometry.coordinates.map(polygon => polygon[0]);
             } else {
               coordinates = state.geometry.coordinates[0];
             }
-            coordinates = coordinates.map((item) => [item[1], item[0]]); 
+            coordinates = coordinates.map((item) => [item[1], item[0]]);
 
             return (
-              <div key={state.id}> 
+              <div key={state.id}>
                 {state.geometry.type === 'MultiPolygon' && state.geometry.coordinates.map((polygon, i) => (
                   <Polygon
                     key={`${state.id}-${i}`}
@@ -74,7 +75,7 @@ function MapStates() {
                       dashArray: 3,
                       color: 'white'
                     }}
-                    positions={polygon[0].map((item) => [item[1], item[0]])} 
+                    positions={polygon[0].map((item) => [item[1], item[0]])}
                     eventHandlers={{
                       mouseover: (e) => {
                         const layer = e.target;
@@ -100,7 +101,7 @@ function MapStates() {
                         });
                       },
                       click: (e) => {
-        
+
                       }
                     }}
                   />
@@ -142,7 +143,7 @@ function MapStates() {
                         });
                       },
                       click: (e) => {
-        
+
                       }
                     }}
                   />

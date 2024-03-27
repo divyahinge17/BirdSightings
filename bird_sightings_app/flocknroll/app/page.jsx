@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <div>
       <Login></Login>
+      <Link href="/desktop/location">Location</Link>
 {/* <Link href="/desktop/location">Location</Link><br></br>
 <Link href="/login">Login</Link><br></br>
 <Link href="/signup">SignUp</Link>
