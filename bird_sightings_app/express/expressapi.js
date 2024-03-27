@@ -1,80 +1,100 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const { MongoClient } = require('mongodb');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const { MongoClient } = require("mongodb");
 
 const app = express();
 const port = 3002;
 
 app.use(cors());
 
-const client = new MongoClient("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient("mongodb://172.22.32.1:27017", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-client.connect()
-    .then(() => console.log("MongoDB Connected!"))
-    .catch(err => console.error(err));
+client
+  .connect()
+  .then(() => console.log("MongoDB Connected!"))
+  .catch((err) => console.error(err));
 
-const db = client.db('flock');
+const db = client.db("flock");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
+app.listen(port, () =>
+  console.log(`Hello world app listening on port ${port}!`)
+);
 
-app.get('/', async (req, res) => {
-    const users = db.collection('users');
-    const result = await users.find({}).toArray();
-    res.send(result);
+app.get("/", async (req, res) => {
+  const users = db.collection("users");
+  const result = await users.find({}).toArray();
+  res.send(result);
 });
 
-app.get('/stateBoundaries', async (req, res) => {
-    const states = db.collection('states');
-    const result = await states.find({}).toArray();
-    console.log(result);
-    res.send(result);
+app.get("/searchDescription", async (req, res) => {
+  const { query } = req.query;
+  const birds = db.collection("birds2");
+  const result = await birds
+    .find(
+      {
+        bird_description: { $regex: query, $options: "i" }, // Case-insensitive search
+      },
+      { species_code: 1, _id: 0 }
+    )
+    .toArray();
+  console.log(result);
+  res.send(result);
 });
 
-app.post('/saveUser', async (req, res) => {
-    data = req.body
+app.get("/stateBoundaries", async (req, res) => {
+  const states = db.collection("states");
+  const result = await states.find({}).toArray();
+  console.log(result);
+  res.send(result);
+});
 
-    if (!data.name || !data.email || !data.password) {
-        res.send("Invalid SignUp Request!")
+app.post("/saveUser", async (req, res) => {
+  data = req.body;
+
+  if (!data.name || !data.email || !data.password) {
+    res.send("Invalid SignUp Request!");
+  } else {
+    const users = db.collection("users");
+    const fetchUser = await users.findOne({
+      email: data.email,
+    });
+
+    if (!fetchUser) {
+      const result = await users.insertOne({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+      res.send("User Created!");
     } else {
-        const users = db.collection('users');
-        const fetchUser = await users.findOne({
-            email: data.email
-        });
-
-        if (!fetchUser) {
-            const result = await users.insertOne({
-                name: data.name,
-                email: data.email,
-                password: data.password
-            });
-            res.send("User Created!");
-        } else {
-            res.send("User with provided Email already exists!")
-        }
+      res.send("User with provided Email already exists!");
     }
+  }
 });
 
-app.post('/getUser', async (req, res) => {
-    data = req.body
+app.post("/getUser", async (req, res) => {
+  data = req.body;
 
-    if (!data.email || !data.password) {
-        res.status(400).json({ message: "Invalid Login Request!" });
+  if (!data.email || !data.password) {
+    res.status(400).json({ message: "Invalid Login Request!" });
+  } else {
+    const users = db.collection("users");
+    const result = await users.findOne({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (!result) {
+      res.status(401).json({ message: "Invalid User Credentials!" });
     } else {
-        const users = db.collection('users');
-        const result = await users.findOne({
-            email: data.email,
-            password: data.password
-        });
-
-        if (!result) {
-            res.status(401).json({ message: "Invalid User Credentials!" });
-        } else {
-            res.status(200).json({ message: "Login Successful!", data: result });
-        }
+      res.status(200).json({ message: "Login Successful!", data: result });
     }
+  }
 });
-

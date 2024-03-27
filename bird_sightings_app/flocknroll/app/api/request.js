@@ -5,24 +5,36 @@ export async function saveUser(name, email, password) {
     const data = {
       name: name,
       email: email,
-      password: password
-    }
-    const response = await axios.post('http://localhost:3002/saveUser', data);
+      password: password,
+    };
+    const response = await axios.post("http://localhost:3002/saveUser", data);
     console.log(response.data);
 
     return response.data;
   } catch (error) {
-    console.error('Error Saving data:', error);
+    console.error("Error Saving data:", error);
   }
 }
 
 export async function getStateBoundaries() {
   try {
-    const response = await axios.get('http://localhost:3002/stateBoundaries');
+    const response = await axios.get("http://localhost:3002/stateBoundaries");
     console.log(response.data);
-    return response.data
+    return response.data;
   } catch (error) {
-    console.error('Error getting data:', error);
+    console.error("Error getting data:", error);
+  }
+}
+
+export async function getBirdsBySearch(query) {
+  try {
+    const response = await axios.get(
+      `http://localhost:3002/searchDescription?query=${query}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting data:", error);
   }
 }
 
@@ -30,13 +42,12 @@ export async function getUser(email, password) {
   try {
     const data = {
       email: email,
-      password: password
-    }
-    const response = await axios.post('http://localhost:3002/getUser', data);
+      password: password,
+    };
+    const response = await axios.post("http://localhost:3002/getUser", data);
 
     return response.data;
   } catch (error) {
-    console.error('Error Saving data:', error);
+    console.error("Error Saving data:", error);
   }
 }
-
