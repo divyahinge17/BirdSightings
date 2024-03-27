@@ -41,8 +41,21 @@ app.get("/searchDescription", async (req, res) => {
       {
         bird_description: { $regex: query, $options: "i" }, // Case-insensitive search
       },
-      { species_code: 1, _id: 0 }
+      { _id: 0 }
     )
+    .toArray();
+  console.log(result);
+  res.send(result);
+});
+
+app.get("/birdSightings", async (req, res) => {
+  const { query } = req.query;
+  console.log(query);
+  const sightings = db.collection("sightings");
+  const result = await sightings
+    .find({
+      SPECIES_CODE: query,
+    })
     .toArray();
   console.log(result);
   res.send(result);

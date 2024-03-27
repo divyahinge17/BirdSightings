@@ -38,6 +38,18 @@ export async function getBirdsBySearch(query) {
   }
 }
 
+export async function getBirdsSigntings(query) {
+  try {
+    const response = await axios.get(
+      `http://localhost:3002/birdSightings?query=${query}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting data:", error);
+  }
+}
+
 export async function getUser(email, password) {
   try {
     const data = {
