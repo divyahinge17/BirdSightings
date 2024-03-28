@@ -26,7 +26,7 @@ const MyPage = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="w-1/2 bg-white shadow-md rounded-lg p-4">
+      <div className="w-1/2 bg-gray-100 shadow-md rounded-lg p-4">
         <Map sightingBird={selectedBird} />
       </div>
       <div className="w-1/2 bg-gray-100 shadow-md rounded-lg p-4">

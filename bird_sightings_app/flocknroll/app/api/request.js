@@ -26,7 +26,19 @@ export async function getStateBoundaries() {
   }
 }
 
-export async function getBirdsBySearch(query) {
+export async function getBirdsByName(query) {
+  try {
+    const response = await axios.get(
+      `http://localhost:3002/searchBird?query=${query}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting data:", error);
+  }
+}
+
+export async function getBirdsByDescription(query) {
   try {
     const response = await axios.get(
       `http://localhost:3002/searchDescription?query=${query}`

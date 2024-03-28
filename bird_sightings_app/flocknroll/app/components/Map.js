@@ -44,8 +44,8 @@ function MapStates({ sightingBird }) {
                 <Marker key={sighting._id} position={[lat, lng]}>
                   <Popup>
                     <p>
-                      Species Code: {sighting.SPECIES_CODE} <br />
-                      How Many: {sighting.HOW_MANY}
+                      How Many: {sighting.HOW_MANY} <br />
+                      Year: {sighting.Year}
                     </p>
                   </Popup>
                 </Marker>

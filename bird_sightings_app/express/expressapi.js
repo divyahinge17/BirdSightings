@@ -48,6 +48,21 @@ app.get("/searchDescription", async (req, res) => {
   res.send(result);
 });
 
+app.get("/searchBird", async (req, res) => {
+  const { query } = req.query;
+  const birds = db.collection("birds2");
+  const result = await birds
+    .find(
+      {
+        american_english_name: { $regex: query, $options: "i" }, // Case-insensitive search
+      },
+      { _id: 0 }
+    )
+    .toArray();
+  console.log(result);
+  res.send(result);
+});
+
 app.get("/birdSightings", async (req, res) => {
   const { query } = req.query;
   console.log(query);
