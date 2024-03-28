@@ -42,3 +42,5 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 - `scripts/`: TBD
     - Run `loc_geo_correction.js` for geo locations update
     - Run `image_insertion.sh` to insert bird images into dataset.
+- `bird_sightings_app/flocknroll`:
+    - Add .env.local File in your bird_sightings_app/flocknroll directory and mention `NEXT_PUBLIC_ENDPOINT_URL=http://localhost:3000` to run App Locally.
