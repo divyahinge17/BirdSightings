@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { MongoClient } = require("mongodb");
+const { MongoClient, GridFSBucket } = require("mongodb");
 
 const app = express();
 const port = 3002;
@@ -123,6 +123,199 @@ app.post("/getUser", async (req, res) => {
       res.status(401).json({ message: "Invalid User Credentials!" });
     } else {
       res.status(200).json({ message: "Login Successful!", data: result });
+    }
+  }
+});
+
+app.post("/getBirdsByLocation", async (req, res) => {
+  const data = req.body;
+  // console.log(req)
+  //console.log(data);
+
+  //use data.stateId
+
+  const sightings = db.collection("sightings");
+  const birds = db.collection("birds");
+  const states = db.collection("states");
+
+  try {
+    const stateResult = await states.findOne({ STUSPS: data.stateId });
+
+    if (!stateResult) {
+      return res.status(404).send("State not found");
+    }
+
+    const stateGeometry = stateResult.geometry;
+    const coord = stateGeometry.coordinates;
+    const uniqueValuesSet = new Set();
+
+    if (stateGeometry.type == "Polygon") {
+      const sightingsWithinPolygon = await sightings
+        .aggregate([
+          {
+            $match: {
+              location: {
+                $geoWithin: {
+                  $geometry: {
+                    type: "Polygon",
+                    coordinates: coord,
+                  },
+                },
+              },
+            },
+          },
+          {
+            $group: {
+              _id: "$SPECIES_CODE",
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              species_code: "$_id",
+            },
+          },
+          {
+            $sort: { species_code: -1 },
+          },
+        ])
+        .toArray();
+
+      sightingsWithinPolygon.forEach((species) => {
+        uniqueValuesSet.add(species.species_code);
+      });
+    } else {
+      await Promise.all(
+        coord.map(async (polygon) => {
+          const sightingsWithinPolygon = await sightings
+            .aggregate([
+              {
+                $match: {
+                  location: {
+                    $geoWithin: {
+                      $geometry: {
+                        type: "Polygon",
+                        coordinates: polygon,
+                      },
+                    },
+                  },
+                },
+              },
+              {
+                $group: {
+                  _id: "$SPECIES_CODE",
+                },
+              },
+              {
+                $project: {
+                  _id: 0,
+                  species_code: "$_id",
+                },
+              },
+              {
+                $sort: { species_code: -1 },
+              },
+            ])
+            .toArray();
+
+          sightingsWithinPolygon.forEach((species) => {
+            uniqueValuesSet.add(species.species_code);
+          });
+        })
+      );
+    }
+
+    const uniqueValuesArray = Array.from(uniqueValuesSet);
+
+    const birdDetails = await birds
+      .find({ species_code: { $in: uniqueValuesArray } })
+      .toArray();
+
+    console.log("Length: " + birdDetails.length);
+
+    res.send(birdDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching data");
+  }
+});
+
+app.post("/getImage", async (req, res) => {
+  data = req.body;
+  console.log(data);
+
+  try {
+    const bucket = new GridFSBucket(db);
+
+    const filesCollection = db.collection("fs.files");
+    // const fileId = new ObjectId(req.params.id);
+
+    const image = await filesCollection.findOne({
+      filename: `${data.birdName}.jpg`,
+    });
+
+    if (!image) {
+      res.status(404).json({ message: "Image not found!" });
+    } else {
+      const downloadStream = bucket.openDownloadStream(image._id);
+
+      downloadStream.on("error", () => {
+        res.status(404).json({ message: "Image not found!" });
+      });
+
+      downloadStream.on("data", (chunk) => {
+        res.write(chunk);
+      });
+
+      downloadStream.on("end", () => {
+        res.end();
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error Fetching Image!" });
+  }
+});
+
+app.post("/getstatecoord", async (req, res) => {
+  const data = req.body;
+  if (!data.stateId) {
+    res.status(400).json({ message: "Invalid State Code!" });
+  } else {
+    const states = db.collection("states");
+    const result = await states.findOne({ STUSPS: data.stateId });
+    res.send(result);
+  }
+});
+
+app.post("/getSightings", async (req, res) => {
+  const data = req.body;
+  //console.log(data);
+  if (!data.stateId) {
+    res.status(400).json({ message: "Invalid State Code!" });
+  } else {
+    try {
+      const sightings = db.collection("sightings");
+      const result = await sightings
+        .find(
+          {
+            SUBNATIONAL1_CODE: "US-" + data.stateId,
+            SPECIES_CODE: data.speciesCode,
+          },
+          {
+            projection: {
+              Year: 1,
+              location: 1,
+              _id: 0,
+            },
+          }
+        )
+        .toArray();
+      //console.log(result);
+      res.json(result);
+    } catch (error) {
+      console.error("Error fetching sightings:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 });
