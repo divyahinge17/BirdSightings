@@ -109,7 +109,7 @@ router.post("/api/getUser", async (req, res) => {
         });
 
         if (!result) {
-            res.status(401).json({ message: "Invalid User Credentials!" });
+            res.status(200).json({ message: "Invalid User Credentials!" });
         } else {
             console.log('Login')
             res.status(200).json({ message: "Login Successful!", data: result });

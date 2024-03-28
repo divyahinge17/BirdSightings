@@ -3,7 +3,6 @@ import express from 'express';
 import next from 'next';
 import bodyParser from "body-parser";
 import cors from "cors";
-import { MongoClient, GridFSBucket } from "mongodb";
 import expRoutes from './expressRoutes/routes.js';
 
 import http from 'http';
