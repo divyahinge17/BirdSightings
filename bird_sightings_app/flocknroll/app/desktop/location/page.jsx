@@ -3,7 +3,7 @@ import React from 'react';
 //import { useRouter } from 'next/router';
 import Map from '@/app/components/mapLoc';
 
-const HomePage = () => {
+const LocationPage = () => {
     //const router = useRouter();
   
     return (
@@ -14,4 +14,4 @@ const HomePage = () => {
     );
   };
   
-  export default HomePage;
+  export default LocationPage;

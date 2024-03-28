@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Navbar from '@/app/navbar/page';
 import { getImage } from '@/app/api/request';
+import StateMap from '@/app/components/Statemap';
 
 export default function BirdInfo() {
 
@@ -38,17 +39,18 @@ export default function BirdInfo() {
     }, [birdName]);
 
     return (
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Navbar />
-            <div className='cardmargin' style={{ display: 'flex' }}>
+            <div className='cardmargin' style={{ display: 'flex', alignItems: 'flex-start' }}>
+                <div style={{ marginRight: '50px' }}>
+                    {imageSrc ? (
+                        <img src={imageSrc} alt={`Image of ${birdName}`} style={{ width: '300px', height: '250px', boxShadow: '0 8px 8px rgba(0, 0, 0, 0.5)' }} />
+                    ) : (
+                        <img src='/images/defaultbird.jpg' alt={`Image Unavailable`} style={{ width: '300px', height: '250px', boxShadow: '0 8px 8px rgba(0, 0, 0, 0.5)' }} />
+                    )}
+                </div>
 
-                {imageSrc ? (
-                    <img src={imageSrc} alt={`Image of ${birdName}`} style={{ width: '300px', height: '250px', boxShadow: '0 8px 8px rgba(0, 0, 0, 0.5)', marginLeft: '5px', marginRight: '50px' }} />
-                ) : (
-                    <img src='/images/defaultbird.jpg' alt={`Image Unavailable`} style={{ width: '300px', height: '250px', boxShadow: '0 8px 8px rgba(0, 0, 0, 0.5)', marginLeft: '5px', marginRight: '50px' }} />
-                )}
-
-                <div>
+                <div style={{ marginRight: '40px' }}>
                     <h1 className="text-3xl font-bold dark:text-black">{birdName}</h1>
                     <br />
                     <p> Scientific Name - {sciName}</p>
@@ -56,6 +58,9 @@ export default function BirdInfo() {
                     {/* <p> State Code - {stateId}</p> */}
                 </div>
 
+                <div style={{ width: '1000px', height: '1000px' }}>
+                    <StateMap style={{ width: '100%', height: '100%' }} />
+                </div>
             </div>
         </div>
     );

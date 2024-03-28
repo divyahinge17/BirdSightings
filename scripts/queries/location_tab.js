@@ -54,3 +54,9 @@ const conn = new Mongo(`localhost:27017`),
     
 
 // print(uniqueValuesSet)
+
+// ===========================Index Created ============================//
+print(`creating index`)
+sightings.createIndex({SUBNATIONAL1_CODE: 1, SPECIES_CODE: 1});
+print(`created index`)
+// 

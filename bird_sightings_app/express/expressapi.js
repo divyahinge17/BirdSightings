@@ -226,7 +226,35 @@ app.post('/getstatecoord', async (req, res) => {
         res.status(400).json({ message: "Invalid State Code!" });
     } else {
         const states = db.collection('states');
-        const result = await states.findOne({ STUSPS: data.stateId }).toArray();
+        const result = await states.findOne({ STUSPS: data.stateId });
         res.send(result);
+    }
+});
+
+app.post('/getSightings', async (req, res) => {
+    const data = req.body;
+    //console.log(data);
+    if (!data.stateId) {
+        res.status(400).json({ message: "Invalid State Code!" });
+    } else {
+        try {
+            const sightings = db.collection('sightings');
+            const result = await sightings.find({ 
+                SUBNATIONAL1_CODE: 'US-'+data.stateId,
+                SPECIES_CODE: data.speciesCode
+            }, 
+            { 
+                projection: { 
+                    Year: 1,
+                    location: 1,
+                    _id: 0
+                }
+            }).toArray();
+            //console.log(result);
+            res.json(result);
+        } catch (error) {
+            console.error('Error fetching sightings:', error);
+            res.status(500).json({ message: "Internal Server Error" });
+        }
     }
 });
