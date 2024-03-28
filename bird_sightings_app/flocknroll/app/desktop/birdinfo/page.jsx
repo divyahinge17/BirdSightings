@@ -54,11 +54,11 @@ export default function BirdInfo() {
                     <h1 className="text-3xl font-bold dark:text-black">{birdName}</h1>
                     <br />
                     <p> Scientific Name - {sciName}</p>
-                    <p> Species Code - {speciesCode}</p>
-                    {/* <p> State Code - {stateId}</p> */}
+                    {/* <p> Species Code - {speciesCode}</p> */}
+                    <p> Description </p>
                 </div>
 
-                <div style={{ width: '1000px', height: '1000px' }}>
+                <div style={{ width: '500px', height: '500px', border: '1px solid black', boxShadow: '0 8px 8px rgba(0, 0, 0, 0.5)' }}>
                     <StateMap style={{ width: '100%', height: '100%' }} />
                 </div>
             </div>
