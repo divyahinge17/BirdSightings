@@ -7,7 +7,7 @@ export async function saveUser(name, email, password) {
       email: email,
       password: password,
     };
-    const response = await axios.post("http://localhost:3002/saveUser", data);
+    const response = await axios.post("https://flocknroll.webdev.gccis.rit.edu/api/saveUser", data);
     //console.log(response.data);
 
     return response.data;
@@ -18,7 +18,7 @@ export async function saveUser(name, email, password) {
 
 export async function getStateBoundaries() {
   try {
-    const response = await axios.get("http://localhost:3002/stateBoundaries");
+    const response = await axios.get("https://flocknroll.webdev.gccis.rit.edu/api/stateBoundaries");
     //console.log(response.data);
     return response.data;
   } catch (error) {
@@ -29,7 +29,7 @@ export async function getStateBoundaries() {
 export async function getBirdsByName(query) {
   try {
     const response = await axios.get(
-      `http://localhost:3002/searchBird?query=${query}`
+      `https://flocknroll.webdev.gccis.rit.edu/api/searchBird?query=${query}`
     );
     console.log(response.data);
     return response.data;
@@ -41,7 +41,7 @@ export async function getBirdsByName(query) {
 export async function getBirdsByDescription(query) {
   try {
     const response = await axios.get(
-      `http://localhost:3002/searchDescription?query=${query}`
+      `https://flocknroll.webdev.gccis.rit.edu/api/searchDescription?query=${query}`
     );
     console.log(response.data);
     return response.data;
@@ -53,7 +53,7 @@ export async function getBirdsByDescription(query) {
 export async function getBirdsSigntings(query) {
   try {
     const response = await axios.get(
-      `http://localhost:3002/birdSightings?query=${query}`
+      `https://flocknroll.webdev.gccis.rit.edu/api/birdSightings?query=${query}`
     );
     console.log(response.data);
     return response.data;
@@ -68,7 +68,7 @@ export async function getUser(email, password) {
       email: email,
       password: password,
     };
-    const response = await axios.post("http://localhost:3002/getUser", data);
+    const response = await axios.post("https://flocknroll.webdev.gccis.rit.edu/api/getUser", data);
 
     return response.data;
   } catch (error) {
@@ -84,7 +84,7 @@ export async function getBirdsByLocation(stateId) {
     // console.log(data)
 
     const response = await axios.post(
-      "http://localhost:3002/getBirdsByLocation",
+      "https://flocknroll.webdev.gccis.rit.edu/api/getBirdsByLocation",
       data
     );
     // console.log(response.data)
@@ -101,7 +101,7 @@ export async function getImage(birdName) {
     };
     //console.log(data);
 
-    const response = await axios.post("http://localhost:3002/getImage", data, {
+    const response = await axios.post("https://flocknroll.webdev.gccis.rit.edu/api/getImage", data, {
       responseType: "blob", // Set responseType to 'blob' to receive binary data
     });
 
@@ -119,7 +119,7 @@ export async function getStateCoord(stateId) {
       stateId: stateId,
     };
     const response = await axios.post(
-      "http://localhost:3002/getstatecoord",
+      "https://flocknroll.webdev.gccis.rit.edu/api/getstatecoord",
       data
     );
 
@@ -137,7 +137,7 @@ export async function getSightings(stateId, speciesCode) {
     };
 
     const response = await axios.post(
-      "http://localhost:3002/getSightings",
+      "https://flocknroll.webdev.gccis.rit.edu/api/getSightings",
       data
     );
 
