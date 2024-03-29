@@ -72,7 +72,8 @@ export default function StatePage() {
             onChange={e => handleSearch(e.target.value)}
             required />
 
-          {isLoading ? ( 
+        <div className="max-h-96 overflow-y-auto">
+        {isLoading ? ( 
             <div className="flex justify-center">
               <img src="/gif/loading.gif" alt="Loading..." className="loading-gif" />
             </div>
@@ -88,6 +89,9 @@ export default function StatePage() {
             </ul>
           )}
         </div>
+          
+        </div>
+
       </div>
     </div>
   )
