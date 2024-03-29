@@ -16,11 +16,11 @@ function SignUp() {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setMessage('')
     setLoading(true);
-    
+
     const response = await saveUser(username, email, password);
 
     //Remove after testing
@@ -29,13 +29,15 @@ function SignUp() {
     if (response == "User Created!") {
       setMessage(response);
       router.push('/login');
+      setLoading(false);
     } else {
       setMessage(response);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex justify-center items-center h-screen flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       {loading ? (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
           <Image
@@ -69,9 +71,10 @@ function SignUp() {
             <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
             <div className="mt-2">
               <input type="text"
+                maxLength={50}
                 id="username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                onChange={(e) => setUsername(e.target.value)} required className="formpadding block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
           </div>
 
@@ -80,8 +83,9 @@ function SignUp() {
             <div className="mt-2">
               <input type="email"
                 id="email"
+                maxLength={30}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                onChange={(e) => setEmail(e.target.value)} required className="formpadding block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
           </div>
 
@@ -92,8 +96,9 @@ function SignUp() {
             <div className="mt-2">
               <input type="password"
                 id="password"
+                minLength={8}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                onChange={(e) => setPassword(e.target.value)} required className="formpadding block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
           </div>
           <div>
