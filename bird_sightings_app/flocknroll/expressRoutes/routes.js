@@ -303,4 +303,35 @@ router.post("/api/getSightings", async (req, res) => {
     }
 });
 
+router.post("/api/saveComment", async (req, res) => {
+    const data = req.body;
+
+    if (data.comment.length > 100) {
+        res.send("Long Comment!");
+    } else {
+        const comments = db.collection("comments");
+        const saveComments = await comments.insertOne({
+            user: data.user,
+            species_code: data.species_code,
+            comment: data.comment
+            
+        });
+        res.send("Comment Added!");
+    }
+});
+
+router.post("/api/getComment", async (req, res) => {
+    const data = req.body;
+
+    if (!data.species_code) {
+        res.status(400).json({ message: "Invalid Species Code!" });
+    } else {
+        const comments = db.collection("comments");
+        const result = await comments.find({
+            species_code: data.species_code
+        }).toArray();
+        res.send(result);
+    }
+});
+
 export default router;
