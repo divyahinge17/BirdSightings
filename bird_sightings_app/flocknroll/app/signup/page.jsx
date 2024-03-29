@@ -10,12 +10,21 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-
-    // Call loginFunction with form data
+    e.preventDefault();
+    setLoading(true);
+    
     const response = await saveUser(username, email, password);
+
+    //Remove after testing
+    await sleep(2000);
 
     if (response == "User Created!") {
       setMessage(response);
@@ -27,16 +36,29 @@ function SignUp() {
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      {loading ? (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
+          <Image
+            className='border-gray-200 rounded-lg'
+            src="/gif/giphy.gif"
+            width={100}
+            height={100}
+            alt="Login GIF"
+            priority={true}
+          />
+
+        </div>
+      ) : null}
       <div className="sm:flex sm:mx-auto sm:w-full sm:max-w-sm items-center justify-center">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9">
           Sign Up&nbsp;
         </h2>
         <Image
-          className='logingif border-gray-200 rounded-lg'
+          className='signupgif border-gray-200 rounded-lg'
           src="/gif/signup.gif"
           width={50}
           height={50}
-          alt="Picture of the author"
+          alt="Sign Up GIF"
         />
 
       </div>

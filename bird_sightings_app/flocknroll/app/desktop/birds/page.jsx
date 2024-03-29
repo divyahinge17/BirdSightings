@@ -7,6 +7,7 @@ import SearchBar from "../../components/SearchBar";
 import SearchResults from "../../components/SearchResults";
 import BirdDetails from "../../components/BirdDetails";
 import Map from "../../components/Map";
+import Navbar from "@/app/navbar/page";
 
 const MyPage = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -25,20 +26,47 @@ const MyPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/2 bg-gray-100 shadow-md rounded-lg p-4">
-        <Map sightingBird={selectedBird} />
+    <div >
+      <Navbar />
+      <div className="listMargin text-center mb-8">
+        <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl">
+          Birds in&nbsp;
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+            America
+          </span>
+        </h1>
       </div>
-      <div className="w-1/2 bg-gray-100 shadow-md rounded-lg p-4">
-        <h1 className="text-3xl font-bold mb-4">Bird Search</h1>
-        <SearchBar onSearch={handleSearch} />
-        {searchResults && (
-          <SearchResults birds={searchResults} onBirdClick={handleBirdClick} />
-        )}
-        {selectedBird && <BirdDetails bird={selectedBird} />}
+      {!selectedBird ? (
+        <div className="flex justify-center">
+          <div className="max-w-lg mx-auto p-6">
+            <SearchBar onSearch={handleSearch} />
+            {searchResults && <SearchResults birds={searchResults} onBirdClick={handleBirdClick} />}
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-wrap justify-center w-full p-6">
+          <div className="w-full md:w-1/2">
+            <div className="max-w-lg mx-auto p-6"> {/* Limited width container for SearchBar */}
+              <SearchBar onSearch={handleSearch} />
+            </div>
+            {searchResults && (
+              <SearchResults birds={searchResults} onBirdClick={handleBirdClick} />
+            )}
+          </div>
+          <div className="w-full md:w-1/2 p-6">
+            {selectedBird && <BirdDetails bird={selectedBird} />}
+          </div>
+        </div>
+      )}
+
+      <div className="flex-grow w-full flex justify-center">
+        <div className="w-full max-w-screen-lg">
+          {selectedBird && <Map sightingBird={selectedBird} className="w-full h-full" />}
+        </div>
       </div>
     </div>
   );
 };
+
 
 export default MyPage;

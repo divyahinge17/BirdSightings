@@ -27,11 +27,17 @@ function MapStates({ sightingBird }) {
   const [isLoading, setIsLoading] = useState(true);
   const [markers, setMarkers] = useState([]);
 
+  console.log('In Map...')
+  console.log(sightingBird)
+
   useEffect(() => {
     (async () => {
       try {
+        console.log('In Sighting Effect')
+        console.log(sightingBird)
         if (sightingBird) {
           const sightings = await getBirdsSigntings(sightingBird.species_code);
+          console.log(sightings)
           const newMarkers = sightings.map((sighting) => {
             const { location } = sighting;
             if (
@@ -64,10 +70,11 @@ function MapStates({ sightingBird }) {
   }, [sightingBird]);
 
   return (
-    <MapContainer
+    <div className="birdinfomargin flex justify-center items-center h-screen">
+    <MapContainer className='mapcontainer'
       center={[39.8283, -98.5795]}
       zoom={4}
-      style={{ width: "50%", height: "100%", position: "absolute", left: "0" }}
+      style={{ margin:"25px", width: "50%", height: "70%", position: "absolute", left: "0" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -81,6 +88,7 @@ function MapStates({ sightingBird }) {
         <div className="text-center p-4">No sightings found for this bird.</div>
       )}
     </MapContainer>
+    </div>
   );
 }
 
