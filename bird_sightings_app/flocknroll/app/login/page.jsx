@@ -100,13 +100,13 @@ function Login() {
             </div>
           </div>
           <div>
-            <button type="submit" className="button-background flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <button type="submit" className="button-background w-full rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl font-medium rounded-lg">
               Log in
             </button>
           </div>
         </form>
-        {message && (
-          <p className={`mt-4 text-center text-sm font-medium ${message.includes('Login Successful!') ? 'text-green-600' : 'text-red-600'}`}>
+        {message != 'Login Successful!' && (
+          <p className='mt-4 text-center text-sm font-medium text-red-600'>
             {message}
           </p>
         )}

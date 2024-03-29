@@ -28,13 +28,17 @@ function SignUp() {
 
     if (response == "User Created!") {
       setMessage(response);
-      router.push('/login');
+      // router.push('/login');
       setLoading(false);
     } else {
       setMessage(response);
       setLoading(false);
     }
   };
+
+  const goToLogin = () => {
+    router.push('/login');
+  }
 
   return (
     <div className="flex justify-center items-center h-screen flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -51,6 +55,22 @@ function SignUp() {
 
         </div>
       ) : null}
+      {message == 'User Created!' && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <p className="text-center text-lg font-semibold mb-4">
+              User Created Successfully!
+            </p>
+            <button
+              onClick={goToLogin}
+              className="button-background w-full rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl font-medium rounded-lg"
+            >
+              Go to Login
+            </button>
+          </div>
+        </div>
+      )} 
+
       <div className="sm:flex sm:mx-auto sm:w-full sm:max-w-sm items-center justify-center">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9">
           Sign Up&nbsp;
@@ -102,7 +122,7 @@ function SignUp() {
             </div>
           </div>
           <div>
-            <button type="submit" className="button-background flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <button type="submit" className="button-background w-full rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl font-medium rounded-lg">
               Sign Up
             </button>
           </div>
