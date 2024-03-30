@@ -60,7 +60,7 @@ router.get("/api/birdSightings", async (req, res) => {
     const result = await sightings
         .find({
             SPECIES_CODE: query,
-        })
+        }).limit(100000)
         .toArray();
         
     res.send(result);
@@ -330,6 +330,20 @@ router.post("/api/getComment", async (req, res) => {
         const result = await comments.find({
             species_code: data.species_code
         }).toArray();
+        res.send(result);
+    }
+});
+
+router.post("/api/getBirdById", async (req, res) => {
+    const data = req.body;
+
+    if (!data.species_code) {
+        res.status(400).json({ message: "Invalid Species Code!" });
+    } else {
+        const comments = db.collection("birds");
+        const result = await comments.findOne({
+            species_code: data.species_code
+        })
         res.send(result);
     }
 });

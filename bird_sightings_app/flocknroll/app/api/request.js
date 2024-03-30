@@ -50,7 +50,7 @@ export async function getBirdsByDescription(query) {
   }
 }
 
-export async function getBirdsSigntings(query) {
+export async function getBirdsSightings(query) {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/birdSightings?query=${query}`
@@ -170,6 +170,22 @@ export async function getComment(species_code) {
     };
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getComment`,
+      data
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error getting comments:", error);
+  }
+}
+
+export async function getBirdById(species_code) {
+  try {
+    const data = {
+      species_code: species_code,
+    };
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getBirdById`,
       data
     );
 

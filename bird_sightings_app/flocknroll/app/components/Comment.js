@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getComment } from "../api/request";
 import { saveComment } from "../api/request";
-import { comment } from 'postcss';
 
 export default function Comment({ user, species_code }) {
 
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+
+    const maxLength = 1000;
 
     useEffect(() => {
 
@@ -28,26 +29,18 @@ export default function Comment({ user, species_code }) {
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (newComment.length > 100) {
-                setNewComment('Long Comment!');
-            } else if (newComment.length == 0) {
-                setNewComment('No Comment!');
-            }
-            else {
-                await saveComment(user, species_code, newComment);
-                const commentsData = await getComment(species_code);
-                setComments(commentsData);
-                setNewComment('');
-            }
-
+            await saveComment(user, species_code, newComment);
+            const commentsData = await getComment(species_code);
+            setComments(commentsData);
+            setNewComment('');
         } catch (error) {
             console.log(error);
         }
     };
 
     return (
-        <div>
-            <div className="w-full bg-white rounded-lg border p-2 my-4 mx-6" style={{ width: '1000px' }}>
+        <div className='cardmargin-2'>
+            <div className="w-full bg-white rounded-lg border p-2">
 
                 <h3 className="font-bold">Comments ({comments.length})</h3>
 
@@ -72,39 +65,24 @@ export default function Comment({ user, species_code }) {
                             ))}
                         </div>
                     </div>
+                    <div className="w-full px-3 my-2">
+                        <textarea
+                            placeholder="Type Your Comment..."
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            maxLength={maxLength}
+                            className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                            required
+                        ></textarea>
 
-                    {newComment !== 'Long Comment!' && newComment !== 'No Comment!' ? (
-                        <div className="w-full px-3 my-2">
-                            <textarea
-                                placeholder="Type Your Comment..."
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                                className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
-                            ></textarea>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="w-full px-3 my-2">
-                                {newComment == 'Long Comment!' ? (
-                                    <p className="text-red-500">Your comment is too long!</p>
-                                ) : (
-                                    <p className="text-red-500">Please Type Your Comment!</p>
-                                )}
-
-                            </div>
-                            <div className="w-full px-3 my-2">
-                                <textarea
-                                    placeholder="Type Your Comment..."
-                                    value=""
-                                    onChange={(e) => setNewComment(e.target.value)}
-                                    className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
-                                ></textarea>
-                            </div>
-                        </>
-                    )}
-                    <div className="w-full flex justify-end px-3">
-                        <button type="submit" className="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500">Post Comment</button>
                     </div>
+                    <div className="flex flex-col">
+                        <div className="flex items-center justify-between">
+                            <p className="text-xs">Characters remaining: {maxLength - newComment.length}</p>
+                            <button type="submit" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Post Comment</button>
+                        </div>
+                    </div>
+
                 </form>
 
             </div>
