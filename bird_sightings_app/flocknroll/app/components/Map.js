@@ -8,7 +8,7 @@ import {
   Popup,
   Polygon,
 } from "react-leaflet";
-import { getStateBoundaries, getBirdsSigntings } from "../api/request";
+import { getStateBoundaries, getBirdsSightings } from "../api/request";
 import Image from "next/image";
 
 function convertData(data) {
@@ -66,7 +66,7 @@ function MapStates({ sightingBird }) {
         console.log('In Sighting Effect')
         console.log(sightingBird)
         if (sightingBird) {
-          const sightings = await getBirdsSigntings(sightingBird.species_code);
+          const sightings = await getBirdsSightings(sightingBird.species_code);
           console.log(sightings)
           setSightings(sightings)
         }

@@ -30,6 +30,10 @@
     margin-inline-start: 1rem;
 }
 
+.mapmargin {
+    margin-top: -80px;
+}
+
 .birdinfomargin {
     margin-top: -70px;
 }

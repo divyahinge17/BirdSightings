@@ -8,14 +8,18 @@ import SearchResults from "../../components/SearchResults";
 import BirdDetails from "../../components/BirdDetails";
 import Map from "../../components/Map";
 import Navbar from "@/app/navbar/page";
+import Comment from "@/app/components/Comment";
 
 const MyPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedBird, setSelectedBird] = useState(null);
+  const userName = localStorage.getItem('userName');
   // const [sightingBird, setSightingBird] = useState([]);
 
   const handleSearch = (data) => {
     setSearchResults(data);
+    console.log("In Seacrh...")
+    console.log(data)
   };
 
   const handleBirdClick = (bird) => {
@@ -37,10 +41,7 @@ const MyPage = () => {
         </h1>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-
-
         <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-
           <div style={{ marginRight: '50px' }}>
             {!selectedBird ? (
               <div className="flex justify-center">
@@ -50,7 +51,7 @@ const MyPage = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-wrap justify-center w-full p-6">
+              <div className="flex flex-wrap justify-center w-full p-6" style={{paddingLeft: '80px'}}>
                 <div className="w-full md:w-1/2">
                   <div className="max-w-lg mx-auto p-6"> {/* Limited width container for SearchBar */}
                     <SearchBar onSearch={handleSearch} />
@@ -58,26 +59,27 @@ const MyPage = () => {
                   {searchResults && (
                     <SearchResults birds={searchResults} onBirdClick={handleBirdClick} />
                   )}
+                  {selectedBird && <Map sightingBird={selectedBird} />}
                 </div>
                 <div className="w-full md:w-1/2 p-6">
-                  {selectedBird && <BirdDetails bird={selectedBird} />}
+                  <div style={{paddingLeft: '70px'}}>
+                    {selectedBird && <BirdDetails bird={selectedBird} />}
+                  </div>
+
                 </div>
               </div>
             )}
           </div>
-
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
+      {/* <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', minHeight: '100vh' }}>
         <div className="flex flex-wrap justify-center w-full p-6">
           <div className="w-full md:w-1/2">
             {selectedBird && <Map sightingBird={selectedBird} className="w-full h-full" />}
           </div>
-          <div className="w-full md:w-1/2 p-6">
-            {/* {selectedBird && <BirdDetails bird={selectedBird} />} */}
-          </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -30,7 +30,7 @@ export default function Main() {
                     </a>
                     <div className="p-5" onClick={() => handleClickBirds()}>
                         <a onClick={() => handleClickBirds()}>
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Seacrh By Bird</h5>
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Search By Bird</h5>
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">You can find the Birds by providing their Names. You will get to see where the Birds were sighted and see their image and details.</p>
                         <a onClick={() => handleClickBirds()} className="button-background-2 inline-flex items-center px-3 py-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm">

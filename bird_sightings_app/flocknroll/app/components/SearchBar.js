@@ -18,7 +18,7 @@ const SearchBar = ({ onSearch }) => {
     }
   };
 
-  const defaultSearch =  async(value) => {
+  const defaultSearch = async (value) => {
     const response = await getBirdsByName(value);
     onSearch(response);
   }
@@ -34,7 +34,7 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     //className="absolute top-20 left-0 p-6"
-    <div> 
+    <div>
       {/* <div className="text-center mb-8">
         <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl">
           Birds in&nbsp;
@@ -69,13 +69,16 @@ const SearchBar = ({ onSearch }) => {
           <label htmlFor="searchByDescription" className="ml-1">Bird Details</label>
         </div>
       </div>
-      <input
-        className="searchBarSpace searchbar block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        type="text"
-        placeholder="Search for birds..."
-        value={query}
-        onChange={handleSearch}
-      />
+      <div className="flex justify-center">
+        <input
+          className="searchBarSpace searchbar block p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          type="text"
+          placeholder="Search for birds..."
+          value={query}
+          onChange={handleSearch}
+          style={{ width: '500px' }}
+        />
+      </div>
     </div>
   );
 };
