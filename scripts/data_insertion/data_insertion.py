@@ -9,7 +9,7 @@ collections_path = {
     'sightings': '../../dataset/sightings/sightings_2021_2023.csv',
     'birds': '../../dataset/birds/birds.csv',
     'sites': '../../dataset/sites/sites.csv',
-    'states': '../../dataset/state_boundaries/cb_2018_us_state_500k.shp',
+    'states': '../../dataset/state_boundaries/states.shp',
     'counties': '../../dataset/county_boundaries/cb_2018_us_zcta510_500k.shp'
 }
 

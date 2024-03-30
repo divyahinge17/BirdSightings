@@ -9,9 +9,9 @@ import Navbar from '@/app/navbar/page';
 export default function StatePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [birds, setBirds] = useState([]); // State to store birds data
+  const [birds, setBirds] = useState([]); 
   const [filteredBirds, setFilteredBirds] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true);
   const stateId = searchParams.get('stateId');
   const stateName = searchParams.get('stateName');
 
