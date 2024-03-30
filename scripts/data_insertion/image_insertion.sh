@@ -9,7 +9,7 @@ upload_image_to_mongodb() {
 }
 
 # Directory containing the images
-image_directory="../../dataset/bird_images/nabirds/final_images"
+image_directory="../../dataset/bird_images/nabirds/new_images"
 
 
 # MongoDB Database Name
