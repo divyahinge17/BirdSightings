@@ -12,6 +12,11 @@
     margin-top: 50px;
 }
 
+
+.cardmargin-3 {
+    margin-top: 500px;
+}
+
 .usernav {
     margin-inline-start: 1rem;
     margin-inline-end: auto;
@@ -23,6 +28,19 @@
 
 .usernav+button {
     margin-inline-start: 1rem;
+}
+
+.mapmargin {
+    margin-top: -80px;
+}
+
+.birdinfomargin {
+    margin-top: -70px;
+}
+
+.formpadding {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .listMargin {
@@ -43,6 +61,10 @@
 
 .logingif {
     margin-bottom: -15px;
+}
+
+.signupgif {
+    margin-bottom: -25px;
 }
 
 .mapcontainer {
