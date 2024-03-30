@@ -2,16 +2,14 @@ const conn = new Mongo(`localhost:27017`),
     db = conn.getDB(`flock`),
     sightings = db.getCollection(`sightings`),
     birds = db.getCollection(`birds`),
-    sites = db.getCollection(`sites`);
-    states = db.getCollection(`states`);
-    users = db.getCollection(`users`);
-
-//const bucket = new conn.GridFSBucket(db);
+    sites = db.getCollection(`sites`),
+    states = db.getCollection(`states`),
+    users = db.getCollection(`users`),
+    images = db.getCollection(`fs.files`);
 
 //Get All Users
 all_users = users.find({});
 print(all_users);
-
 
 // ===========================Search by Birds ============================//
 
@@ -73,6 +71,9 @@ print(bird_sighting);
 
 // ===========================Search by Location ============================//
 
+
+
+
 // Get State Boundaries
 state_boundaries = states.find({}).toArray();
 
@@ -85,7 +86,7 @@ print(state_boundaries);
 
 //get state polygon
 const stateData = db.states.findOne({ STUSPS: 'WY' });
-const stateGeometry = stateResult.geometry;
+const stateGeometry = stateData.geometry;
 const coord = stateGeometry.coordinates;
 
 const uniqueValuesSet = new Set();
@@ -134,69 +135,70 @@ if (stateGeometry.type == "Polygon") {
         uniqueValuesSet.add(species.species_code);
     });
 } else {
-    const sightingsWithinPolygon = sightings
-        .aggregate([
-            {
-                $match: {
-                    location: {
-                        $geoWithin: {
-                            $geometry: {
-                                type: "Polygon",
-                                coordinates: polygon,
+
+    coord.forEach((polygon) => {
+        const sightingsWithinPolygon = sightings
+            .aggregate([
+                {
+                    $match: {
+                        location: {
+                            $geoWithin: {
+                                $geometry: {
+                                    type: "Polygon",
+                                    coordinates: polygon,
+                                },
                             },
                         },
                     },
                 },
-            },
-            {
-                $group: {
-                    _id: "$SPECIES_CODE",
+                {
+                    $group: {
+                        _id: "$SPECIES_CODE",
+                    },
                 },
-            },
-            {
-                $project: {
-                    _id: 0,
-                    species_code: "$_id",
+                {
+                    $project: {
+                        _id: 0,
+                        species_code: "$_id",
+                    },
                 },
-            },
-            {
-                $sort: { species_code: -1 },
-            },
-        ])
-        .toArray();
+                {
+                    $sort: { species_code: -1 },
+                },
+            ])
+            .toArray();
 
-    sightingsWithinPolygon.forEach((species) => {
-        uniqueValuesSet.add(species.species_code);
+        sightingsWithinPolygon.forEach((species) => {
+            uniqueValuesSet.add(species.species_code);
+        });
     });
-
 }
-
-
 
 print(uniqueValuesSet);
 
-
 //Find Bird Image
-//myfile = bucket.findOne({ filename: "Abert's Towhee.jpg" });
-//print(myfile);
+
+print("Get Image");
+const birdImage = images.findOne({ filename: 'Mallard.jpg' });
+print(birdImage);
 
 
 // Get State Co-ordinates
 const stateId = `WY`;
-state_cood = states.findOne({ STUSPS: stateId });
+const state_cood = states.findOne({ STUSPS: stateId });
 
 print(state_cood);
 
 
-//Get Syayewise Bird Sightings
-const bird = 'abetow';
+//Get Statewise Bird Sightings
+const bird = 'mallar3';
 const state_code = 'WY';
 
-bird_sighting = sightings.find(
+const bird_sighting = db.sightings.find(
     { SUBNATIONAL1_CODE: "US-" + state_code, SPECIES_CODE: bird },
-    { location: 1, Year: 1, _id: 0 },
-    { Year: 1, location: 1, _id: 0 }
+    { location: 1, Year: 1, _id: 0 }
 );
 
 print('Bird Sightings:');
+print(bird_sighting.toArray())
 print(bird_sighting.toArray().length);
