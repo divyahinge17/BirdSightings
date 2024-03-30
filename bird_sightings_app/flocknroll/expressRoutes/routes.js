@@ -122,7 +122,7 @@ router.post("/api/getBirdsByLocation", async (req, res) => {
 
     const sightings = db.collection("sightings");
     const birds = db.collection("birds");
-    const states = db.collection("states");
+    const states = db.collection("states_lowres");
 
     try {
         const stateResult = await states.findOne({ STUSPS: data.stateId });

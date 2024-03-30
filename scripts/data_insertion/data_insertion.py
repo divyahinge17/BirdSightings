@@ -10,6 +10,7 @@ collections_path = {
     'birds': '../../dataset/birds/birds_with_description.csv',
     'sites': '../../dataset/sites/sites.csv',
     'states': '../../dataset/state_boundaries_with_center/states.shp',
+    'states_lowres': '../../dataset/state_boundaries_low_res/states.shp',
     'counties': '../../dataset/county_boundaries/cb_2018_us_zcta510_500k.shp'
 }
 
@@ -18,6 +19,7 @@ columns_to_drop = {
     'birds': ['alt_full_spp_code', ' '],
     'sites': [],
     'states': [],
+    'states_lowres': [],
     'counties': []
 }
 
@@ -195,18 +197,13 @@ for index, row in tqdm(df.iterrows()):
         description += ' Presence of {}.'.format(', '.join(presence_description))
     descriptions.append(description)
 df['description'] = descriptions
-
 columns_to_add = ['loc_id', 'latitude', 'longitude', 'proj_period_id', 'housing_density', 'population_atleast', 'count_area_size_sq_m_atleast']
 df = df[columns_to_add + ['description']]
-
 end_time = time.time()
 total_time = end_time - start_time
-
 print('Time Taken to Create Description: ' + str(total_time))
-
 print('\nConverting Dataframe to Dictionary...')
 records = df.to_dict('records')
-
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 print("")
@@ -216,14 +213,25 @@ print('starting data insertion for states collection...')
 print('Reading SHP...')
 collection_name = 'states'
 gdf = gpd.read_file(collections_path[collection_name])
-
 print('Total Records: ' + str(gdf.shape[0]))
 gdf = gdf.drop(columns_to_drop[collection_name], axis=1)
 gdf['geometry'] = gdf['geometry'].apply(lambda x: x.__geo_interface__)
-
 print('\nConverting Dataframe to Dictionary...')
 records = gdf.to_dict('records')
+print('\nInserting Data in ' + collection_name + ' Collection')
+insert_data(records, collection_name, 10000)
+print("")
 
+# Inserting Data in `states_lowres` Collection (low resolution version of boundaries)
+print('starting data insertion for states low resolution collection...')
+print('Reading SHP...')
+collection_name = 'states_lowres'
+gdf = gpd.read_file(collections_path[collection_name])
+print('Total Records: ' + str(gdf.shape[0]))
+gdf = gdf.drop(columns_to_drop[collection_name], axis=1)
+gdf['geometry'] = gdf['geometry'].apply(lambda x: x.__geo_interface__)
+print('\nConverting Dataframe to Dictionary...')
+records = gdf.to_dict('records')
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 print("")
@@ -233,14 +241,11 @@ print('starting data insertion for counties collection...')
 print('Reading SHP...')
 collection_name = 'counties'
 gdf = gpd.read_file(collections_path[collection_name])
-
 print('Total Records: ' + str(gdf.shape[0]))
 gdf = gdf.drop(columns_to_drop[collection_name], axis=1)
 gdf['geometry'] = gdf['geometry'].apply(lambda x: x.__geo_interface__)
-
 print('\nConverting Dataframe to Dictionary...')
 records = gdf.to_dict('records')
-
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 
