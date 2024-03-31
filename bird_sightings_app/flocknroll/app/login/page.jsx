@@ -34,8 +34,6 @@ function Login() {
       localStorage.setItem('userName', response.data.name);
       localStorage.setItem('userEmail', response.data.email);
 
-      console.log(localStorage.getItem('userName'))
-
       setMessage(response.message);
       router.push('/main');
     } else {

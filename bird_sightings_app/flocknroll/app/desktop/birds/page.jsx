@@ -14,19 +14,13 @@ const MyPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedBird, setSelectedBird] = useState(null);
   const userName = localStorage.getItem('userName');
-  // const [sightingBird, setSightingBird] = useState([]);
 
   const handleSearch = (data) => {
     setSearchResults(data);
-    console.log("In Seacrh...")
-    console.log(data)
   };
 
   const handleBirdClick = (bird) => {
     setSelectedBird(bird);
-    // const response = await fetch(`/api/sightings?species_code=${bird.species_code}`);
-    // const data = await response.json();
-    // setSightingBird(bird);
   };
 
   return (

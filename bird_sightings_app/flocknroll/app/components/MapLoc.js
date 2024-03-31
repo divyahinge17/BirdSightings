@@ -28,7 +28,6 @@ function Map() {
   }
 
   const handleClickEvent = (state) => {
-    // console.log(state);
     router.push(`/desktop/state?stateId=${state.properties.state_code}&stateName=${state.properties.name}`);
   }
 
@@ -45,7 +44,6 @@ function Map() {
           await sleep(2000)
 
           setStateData(data);
-          // console.log(stateData.features)
 
         } catch (error) {
           console.error('Error fetching data:', error);

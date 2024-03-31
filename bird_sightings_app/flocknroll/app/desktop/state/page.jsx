@@ -20,11 +20,9 @@ export default function StatePage() {
     const fetchData = async () => {
       try {
         if (!birds.length == 0) {
-          console.log('Not Calling...')
           setBirds(birds); // Update birds state with fetched data
           setFilteredBirds(birds); // Initialize filtered birds with all birds data
         } else {
-          console.log('Calling...')
           const birdsData = await getBirdsByLocation(stateId);
           setBirds(birdsData); // Update birds state with fetched data
           setFilteredBirds(birdsData); // Initialize filtered birds with all birds data
@@ -61,7 +59,7 @@ export default function StatePage() {
           <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl">
             Birds in&nbsp;
             <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
-              {stateName}
+              {stateName}!
             </span>
           </h1>
         </div>

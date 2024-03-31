@@ -29,9 +29,6 @@ function MapStates({ sightingBird }) {
   const [stateData, setStateData] = useState([]);
   const [sightings, setSightings] = useState([]);
 
-  console.log('In Map...')
-  console.log(sightingBird)
-
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -63,11 +60,9 @@ function MapStates({ sightingBird }) {
       }
 
       try {
-        console.log('In Sighting Effect')
-        console.log(sightingBird)
         if (sightingBird) {
           const sightings = await getBirdsSightings(sightingBird.species_code);
-          console.log(sightings)
+
           setSightings(sightings)
         }
       } catch (error) {

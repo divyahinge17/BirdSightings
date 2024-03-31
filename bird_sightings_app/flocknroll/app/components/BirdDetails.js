@@ -13,13 +13,9 @@ const BirdDetails = ({ bird }) => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        console.log(bird.american_english_name)
         const imageData = await getImage(bird.american_english_name);
-        console.log(imageData)
 
         if (imageData == "Image not found!") {
-          console.log("Here")
-          console.log(imageData)
           setImageSrc(null);
         } else {
           setImageSrc(URL.createObjectURL(imageData));

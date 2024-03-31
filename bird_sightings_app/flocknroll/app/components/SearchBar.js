@@ -24,7 +24,6 @@ const SearchBar = ({ onSearch }) => {
   }
 
   useEffect(() => {
-    console.log("Here")
     defaultSearch(""); // Fetch search results with empty query on page load
   }, []);
 

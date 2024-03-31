@@ -22,10 +22,7 @@ export default function BirdInfo() {
         const fetchImage = async () => {
             try {
                 const imageData = await getImage(birdName);
-                console.log(imageData)
-
                 if (imageData == "Image not found!") {
-                    console.log(imageData)
                 } else {
                     setImageSrc(URL.createObjectURL(imageData));
                 }
