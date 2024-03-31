@@ -158,7 +158,25 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 |                 | `LOC_ID`             | String    | Location ID                                            | `'L100032'`                            |
 |                 | `SUBNATIONAL1_CODE`  | String    | Subnational code                                       | `'US-MN'`                              |
 |                 | `ENTRY_TECHNIQUE`    | String    | Technique of data entry                                | `'PointMaker1.0_2'`                    |
-|                 | `HOW_MANY`           | Integer   | Number indicating how many sightings                   | `1`                                    |
+|                 | `SUB_ID` | String |||
+|| `OBS_ID`| String|
+||`Month`|Integer|
+||`Day`| Integer|
+||`Year`|Integer|
+||`PROJ_PERIOD_ID`| String|
+||`SPECIES_CODE`| String|
+||`alt_full_spp_code`|NaN (typically a String or Integer)|
+||`HOW_MANY`| Integer|
+||`PLUS_CODE`| NaN (typically a String)|
+||`VALID`|Integer (Boolean)|
+||`REVIEWED`| Integer (Boolean)|
+||`DAY1_AM`| Integer (Boolean)|
+||`DAY1_PM`| Integer (Boolean)|
+||`DAY2_AM`| Integer (Boolean)|
+||`DAY2_PM`| Integer (Boolean)|
+||`EFFORT_HRS_ATLEAST`| Double|
+||`SNOW_DEP_ATLEAST`|Double|
+||`Data_Entry_Method`| String|                                 |
 |                 | `Location`           | Object    | Location object with type and coordinates              | `{ type: 'Point', coordinates: [-93.1303282, 45.1323611] }` |
 | sites           | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
 |                 | `loc_id`             | String    | Location ID                                            | `'L100016'`                            |
