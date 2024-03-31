@@ -70,7 +70,7 @@ This repository contains the datasets, code, and analysis pertaining to our proj
   - `coordinates`: Array of Arrays of Numbers (Longitude and Latitude points)
 
 
-## Sightings Collection Schema
+### Sightings Collection Schema
 
 - `_id`: ObjectId
 - `LOC_ID`: String
@@ -100,7 +100,7 @@ This repository contains the datasets, code, and analysis pertaining to our proj
   - `coordinates`: Array of Numbers (Longitude and Latitude)
 
 
-## Sites Collection Schema
+### Sites Collection Schema
 
 - `_id`: ObjectId
 - `loc_id`: String
@@ -112,7 +112,7 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 - `count_area_size_sq_m_atleast`: Double
 - `description`: String
 
-## States Collection Schema
+### States Collection Schema
 
 - `_id`: ObjectId
 - `STATEFP`: String
@@ -131,9 +131,43 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 
 ### `states_lowres` collection
 
-## Users Collection Schema
+### Users Collection Schema
 
 - `_id`: ObjectId
 - `name`: String
 - `email`: String
 - `password`: String
+
+
+| Collection Name | Field Name           | Data Type | Description                                            | Example Value                          |
+|-----------------|----------------------|-----------|--------------------------------------------------------|----------------------------------------|
+| birds | | | | |
+| counties        | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
+|                 | `ZCTASCE10`          | String    | ZCTA Code                                              | `'36083'`                              |
+|                 | `AFFGEOID10`         | String    | AFF GEO ID                                             | `'8600000US36083'`                     |
+|                 | `GEOID10`            | String    | GEO ID                                                 | `'36083'`                              |
+|                 | `ALAND10`            | Number    | Land area in square meters                             | `659750662`                            |
+|                 | `AWATER10`           | Number    | Water area in square meters                            | `5522919`                              |
+|                 | `geometry`           | Object    | Geometric data defining the shape of the county        | `{ type: 'MultiPolygon', coordinates: [ ... ] }` |
+| sightings       | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
+|                 | `LOC_ID`             | String    | Location ID                                            | `'L100032'`                            |
+|                 | `SUBNATIONAL1_CODE`  | String    | Subnational code                                       | `'US-MN'`                              |
+|                 | `ENTRY_TECHNIQUE`    | String    | Technique of data entry                                | `'PointMaker1.0_2'`                    |
+|                 | `HOW_MANY`           | Integer   | Number indicating how many sightings                   | `1`                                    |
+|                 | `Location`           | Object    | Location object with type and coordinates              | `{ type: 'Point', coordinates: [-93.1303282, 45.1323611] }` |
+| sites           | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
+|                 | `loc_id`             | String    | Location ID                                            | `'L100016'`                            |
+|                 | `latitude`           | Number    | Latitude of the location                               | `48.823873`                            |
+|                 | `longitude`          | Number    | Longitude of the location                              | `-124.0492365`                         |
+|                 | `description`        | String    | Description of the site                                | `'Yard type includes landscape. Feeding done in January, February, March, April, November, December. Presence of cats.'` |
+| states          | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
+|                 | `NAME`               | String    | Name of the state                                      | `'Mississippi'`                        |
+|                 | `ALAND`              | Long      | Land area in square meters                             | `Long('121533519481')`                 |
+|                 | `AWATER`             | Long      | Water area in square meters                            | `Long('3926919758')`                   |
+|                 | `center`             | Array     | Center point coordinates of the state                  | `[32.354668, -89.398528]`              |
+|                 | `geometry`           | Object    | Geometric data defining the shape of the state         | `{ type: 'MultiPolygon', coordinates: [ ... ] }` |
+| users           | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
+|                 | `name`               | String    | Name of the user                                       | `'poorna'`                             |
+|                 | `email`              | String    | Email address of the user                              | `'pp5109@rit.edu'`                     |
+|                 | `password`           | String    | Password for user's account                            | `'12345'`                              |
+
