@@ -1,9 +1,11 @@
+# Before running the script please install the required dependencies
+# pip install pandas geopandas pymongo tqdm
+
 import pandas as pd
 import geopandas as gpd
 from pymongo import MongoClient
 from tqdm import tqdm
 import time
-import json
 
 collections_path = {
     'sightings': '../../dataset/sightings/sightings_2021_2023.csv',
@@ -61,24 +63,26 @@ def insert_data(records, collection_name, batch_size):
 
 print("")
 
-# Inserting Data in `sightings` Collection
-print('starting data insertion for signtings collection...')
+# Inserting Data in sightings Collection
+print('starting data insertion for sightings collection...')
 collection_name = 'sightings'
 cols_to_drop  = columns_to_drop[collection_name]
 csv_path = collections_path[collection_name]
-chunk_size_csv_read = 1000000
+chunk_size_csv_read = 10000
 chunk_size_insert = 1000
 total_records = 0
 for chunk_records, current_chunk_size, current_chunk_number  in read_csv_in_chunks(csv_path, chunk_size_csv_read):
-    print('\nInserting Data in from csv chunk : {} with {} records into '.format(current_chunk_number, current_chunk_size) +collection_name+' Collection')
+    if current_chunk_number%500 == 0:
+        print('\nInserting Data in from csv chunk : {} with {} records into '.format(current_chunk_number, current_chunk_size) +collection_name+' Collection')
     insert_data(chunk_records, collection_name, chunk_size_insert)
     total_records += current_chunk_size
 print('Total Records inserted: ' + str(total_records))
 print("")
 
 #correction of geo poit geometry syntax
+print('Correcting of geo point geometry syntax in sightings...')
 client, collection = connect_to_mongo("sightings")
-result = sightings.update_many(
+result = collection.update_many(
    {},
    [
        {
@@ -249,4 +253,12 @@ records = gdf.to_dict('records')
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 
-
+print("\n Creating Indexes in Sightings Collection...")
+client, collection = connect_to_mongo("sightings")
+print("\n Creating Index on SPECIES_CODE...")
+collection.create_index({'SPECIES_CODE': 1})
+print("\n Creating Index on SUBNATIONAL1_CODE and SPECIES_CODE...")
+collection.create_index({'SUBNATIONAL1_CODE': 1, 'SPECIES_CODE': 1})
+print("\n Creating Index on location (2dsphere)...")
+collection.create_index({'location': "2dsphere"})
+print("\n Created Indexes for Sightings Collection...")
