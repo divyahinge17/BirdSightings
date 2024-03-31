@@ -113,3 +113,4 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 |                 | `password`           | String    | Password for user's account                            | `'12345'`                              |
 
 
+![Schema Diagram of collections](./Schema.png)
