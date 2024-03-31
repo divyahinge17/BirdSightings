@@ -60,7 +60,7 @@ router.get("/api/birdSightings", async (req, res) => {
     .find({
       SPECIES_CODE: query,
     })
-    .limit(100000)
+    .limit(10000)
     .toArray();
 
   res.send(result);
