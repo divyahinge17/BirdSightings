@@ -141,7 +141,12 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 
 | Collection Name | Field Name           | Data Type | Description                                            | Example Value                          |
 |-----------------|----------------------|-----------|--------------------------------------------------------|----------------------------------------|
-| birds | | | | |
+| birds |`_id`| ObjectId | | |
+| |`species_code` |String||
+||`n_locations`|Integer||
+||`scientific_name`|String||
+||`american_english_name`|String||
+||`bird_description`|String | |
 | counties        | `_id`                | ObjectId  | Unique identifier for the document                     | `ObjectId('...')`                      |
 |                 | `ZCTASCE10`          | String    | ZCTA Code                                              | `'36083'`                              |
 |                 | `AFFGEOID10`         | String    | AFF GEO ID                                             | `'8600000US36083'`                     |
