@@ -47,7 +47,7 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 
 ## MongoDB Schema
 
-## Birds Collection Schema
+### Birds Collection Schema
 
 - `_id`: ObjectId
 - `species_code`: String
@@ -57,14 +57,14 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 - `bird_description`: String
 
 
-## Counties Collection Schema
+### Counties Collection Schema
 
 - `_id`: ObjectId
 - `ZCTASCE10`: String
 - `AFFGEOID10`: String
 - `GEOID10`: String
-- `ALAND10`: Number (long integer)
-- `AWATER10`: Number (long integer)
+- `ALAND10`: Integer
+- `AWATER10`: Integer
 - `geometry`: Object
   - `type`: String
   - `coordinates`: Array of Arrays of Numbers (Longitude and Latitude points)
@@ -83,17 +83,17 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 - `Year`: Integer
 - `PROJ_PERIOD_ID`: String
 - `SPECIES_CODE`: String
-- `alt_full_spp_code`: NaN (typically a String or Number)
+- `alt_full_spp_code`: NaN (typically a String or Integer)
 - `HOW_MANY`: Integer
 - `PLUS_CODE`: NaN (typically a String)
-- `VALID`: Integer (often representing a Boolean)
-- `REVIEWED`: Integer (often representing a Boolean)
-- `DAY1_AM`: Integer (often representing a Boolean)
-- `DAY1_PM`: Integer (often representing a Boolean)
-- `DAY2_AM`: Integer (often representing a Boolean)
-- `DAY2_PM`: Integer (often representing a Boolean)
-- `EFFORT_HRS_ATLEAST`: Number
-- `SNOW_DEP_ATLEAST`: Number
+- `VALID`: Integer (Boolean)
+- `REVIEWED`: Integer (Boolean)
+- `DAY1_AM`: Integer (Boolean)
+- `DAY1_PM`: Integer (Boolean)
+- `DAY2_AM`: Integer (Boolean)
+- `DAY2_PM`: Integer (Boolean)
+- `EFFORT_HRS_ATLEAST`: Double
+- `SNOW_DEP_ATLEAST`: Double
 - `Data_Entry_Method`: String
 - `Location`: Object
   - `type`: String
@@ -104,12 +104,12 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 
 - `_id`: ObjectId
 - `loc_id`: String
-- `latitude`: Number
-- `longitude`: Number
+- `latitude`: Double
+- `longitude`: Double
 - `proj_period_id`: String
 - `housing_density`: Integer
 - `population_atleast`: Integer
-- `count_area_size_sq_m_atleast`: Number
+- `count_area_size_sq_m_atleast`: Double
 - `description`: String
 
 ## States Collection Schema
@@ -127,10 +127,7 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 - `center`: Array of Numbers (Longitude and Latitude)
 - `geometry`: Object
   - `type`: String
-  - `coordinates`: Array of Arrays of Arrays of Numbers (Longitude and Latitude points for MultiPolygon)
-
-Note: The coordinates array is typically a complex structure for representing the shapes of geographic entities like states, and it has been truncated here for brevity.
-
+  - `coordinates`: Array of Arrays of Arrays of Numbers (Longitude and Latitude)
 
 ### `states_lowres` collection
 
