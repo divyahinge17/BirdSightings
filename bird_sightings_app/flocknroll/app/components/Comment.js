@@ -50,15 +50,17 @@ export default function Comment({ user, species_code }) {
                             {comments.map((comment, index) => (
                                 <div key={comment._id} className="border rounded-md p-3 ml-3 my-3 ">
                                     <div className="flex gap-3 items-center">
-                                        <div className="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                            <svg className="absolute w-8 h-8 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                                        <div className="relative w-6 h-6 overflow-hidden bg-blue-100 rounded-full dark:bg-blue-600">
+                                            <svg className="absolute w-8 h-8 text-gray-300 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/>
+                                            </svg>
                                         </div>
                                         <div className="font-medium dark:text-black">
                                             <div>{comment.user}</div>
                                         </div>
                                     </div>
 
-                                    <p class="text-gray-600 mt-2">
+                                    <p className="text-gray-600 mt-2">
                                         {comment.comment}
                                     </p>
                                 </div>
