@@ -231,7 +231,6 @@ router.post("/api/getImage", async (req, res) => {
         const bucket = new GridFSBucket(db);
 
         const filesCollection = db.collection("fs.files");
-        // const fileId = new ObjectId(req.params.id);
 
         const image = await filesCollection.findOne({
             filename: `${data.birdName}.jpg`,

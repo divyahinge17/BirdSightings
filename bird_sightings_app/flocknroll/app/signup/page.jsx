@@ -28,7 +28,6 @@ function SignUp() {
 
     if (response == "User Created!") {
       setMessage(response);
-      // router.push('/login');
       setLoading(false);
     } else {
       setMessage(response);

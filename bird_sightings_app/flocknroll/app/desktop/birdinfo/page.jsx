@@ -79,7 +79,6 @@ export default function BirdInfo() {
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{birdName}</h5>
                                 <h4 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">({birdDetails.scientific_name})</h4>
                             </a>
-                            {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">({birdDetails.scientific_name})</p> */}
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 max-h-32 overflow-y-auto text-justify px-4 py-2">
                                 {birdDetails.bird_description}
                             </p>

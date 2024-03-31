@@ -1,4 +1,3 @@
-import { Image } from "next/image";
 import React, { useState, useEffect } from 'react';
 import { getImage } from '@/app/api/request';
 import Comment from "@/app/components/Comment";

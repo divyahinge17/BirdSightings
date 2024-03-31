@@ -1,6 +1,3 @@
-import { getBirdsByName, getBirdsByDescription } from "../api/request";
-import { useState, useEffect } from "react";
-
 const SearchResults = ({ birds, onBirdClick }) => {  
   return (
     <div className="max-h-96 overflow-y-auto">

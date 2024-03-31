@@ -1,19 +1,14 @@
 "use client";
-
-// export default IndexPage;
-
 import React, { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import SearchResults from "../../components/SearchResults";
 import BirdDetails from "../../components/BirdDetails";
 import Map from "../../components/Map";
 import Navbar from "@/app/navbar/page";
-import Comment from "@/app/components/Comment";
 
 const MyPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedBird, setSelectedBird] = useState(null);
-  const userName = localStorage.getItem('userName');
 
   const handleSearch = (data) => {
     setSearchResults(data);
@@ -47,7 +42,7 @@ const MyPage = () => {
             ) : (
               <div className="flex flex-wrap justify-center w-full p-6" style={{paddingLeft: '80px'}}>
                 <div className="w-full md:w-1/2">
-                  <div className="max-w-lg mx-auto p-6"> {/* Limited width container for SearchBar */}
+                  <div className="max-w-lg mx-auto p-6"> 
                     <SearchBar onSearch={handleSearch} />
                   </div>
                   {searchResults && (
@@ -66,14 +61,6 @@ const MyPage = () => {
           </div>
         </div>
       </div>
-
-      {/* <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', minHeight: '100vh' }}>
-        <div className="flex flex-wrap justify-center w-full p-6">
-          <div className="w-full md:w-1/2">
-            {selectedBird && <Map sightingBird={selectedBird} className="w-full h-full" />}
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };

@@ -11,8 +11,6 @@ function Navbar() {
     const userEmail = localStorage.getItem('userEmail');
     
     const handleSignout = () => {
-        // Try Resetting Login Totally
-        // No Page should be rendered directly
         localStorage.setItem('userName', null);
         localStorage.setItem('userEmail', null);
 

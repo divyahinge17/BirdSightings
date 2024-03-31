@@ -3,7 +3,6 @@ import "leaflet/dist/leaflet.css";
 import {
   MapContainer,
   TileLayer,
-  GeoJSON,
   Marker,
   Popup,
   Polygon,

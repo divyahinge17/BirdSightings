@@ -50,7 +50,6 @@ export default function Main() {
                             height={500}
                             alt="Picture of the author"
                         />
-                        {/* <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" /> */}
                     </a>
                     <div className="p-5" onClick={() => handleClickLocation()}>
                         <a onClick={() => handleClickLocation()}>

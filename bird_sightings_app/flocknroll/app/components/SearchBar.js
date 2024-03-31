@@ -32,16 +32,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    //className="absolute top-20 left-0 p-6"
     <div>
-      {/* <div className="text-center mb-8">
-        <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl">
-          Birds in&nbsp;
-          <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
-            USA
-          </span>
-        </h1>
-      </div> */}
       <div className="flex justify-center space-x-4 mb-4">
         <div className="flex items-center">
           <input
