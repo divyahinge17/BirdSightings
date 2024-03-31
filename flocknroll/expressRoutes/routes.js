@@ -2,7 +2,8 @@ import express from "express";
 import { MongoClient, GridFSBucket } from "mongodb";
 const router = express.Router();
 
-const client = new MongoClient("mongodb://localhost:27017", {
+// change this to desired username and password 
+const client = new MongoClient("mongodb://mongoapp:huMONGOu5@localhost:27017/flock", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -33,8 +34,7 @@ router.get("/api/searchDescription", async (req, res) => {
         bird_description: { $regex: query, $options: "i" }, // Case-insensitive search
       },
       { _id: 0 }
-    )
-    .toArray();
+    ).sort({ american_english_name: 1 }).toArray();
   res.send(result);
 });
 
@@ -47,8 +47,7 @@ router.get("/api/searchBird", async (req, res) => {
         american_english_name: { $regex: query, $options: "i" }, // Case-insensitive search
       },
       { _id: 0 }
-    )
-    .toArray();
+    ).sort({ american_english_name: 1 }).toArray();
   res.send(result);
 });
 
@@ -160,10 +159,7 @@ router.post("/api/getBirdsByLocation", async (req, res) => {
               _id: 0,
               species_code: "$_id",
             },
-          },
-          {
-            $sort: { species_code: -1 },
-          },
+          }
         ])
         .toArray();
 
@@ -197,10 +193,7 @@ router.post("/api/getBirdsByLocation", async (req, res) => {
                   _id: 0,
                   species_code: "$_id",
                 },
-              },
-              {
-                $sort: { species_code: -1 },
-              },
+              }
             ])
             .toArray();
 
@@ -212,10 +205,9 @@ router.post("/api/getBirdsByLocation", async (req, res) => {
     }
 
     const uniqueValuesArray = Array.from(uniqueValuesSet);
-
     const birdDetails = await birds
       .find({ species_code: { $in: uniqueValuesArray } })
-      .toArray();
+      .sort({ american_english_name: 1 }).toArray();
 
     res.send(birdDetails);
   } catch (error) {
