@@ -68,7 +68,7 @@ function MapStates({ sightingBird }) {
 
   return (
     <div
-      className="birdinfomargin flex justify-center items-center h-screen"
+      className="birdinfomargin zval flex justify-center items-center h-screen"
       style={{ position: "sticky" }}
     >
       {stateData.features && sightings ? (

@@ -33,6 +33,10 @@
   margin-top: -80px;
 }
 
+.zval {
+  z-index: -10;
+}
+
 .birdinfomargin {
   margin-top: -70px;
 }
