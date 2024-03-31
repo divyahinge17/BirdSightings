@@ -7,7 +7,10 @@ export async function saveUser(name, email, password) {
       email: email,
       password: password,
     };
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/saveUser`, data);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/saveUser`,
+      data
+    );
 
     return response.data;
   } catch (error) {
@@ -17,7 +20,9 @@ export async function saveUser(name, email, password) {
 
 export async function getStateBoundaries() {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/stateBoundaries`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/stateBoundaries`
+    );
 
     return response.data;
   } catch (error) {
@@ -68,7 +73,10 @@ export async function getUser(email, password) {
       password: password,
     };
 
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getUser`, data);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getUser`,
+      data
+    );
 
     return response.data;
   } catch (error) {
@@ -86,7 +94,7 @@ export async function getBirdsByLocation(stateId) {
       `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getBirdsByLocation`,
       data
     );
-    
+
     return response.data;
   } catch (error) {
     console.error("Error fetching birds data:", error);
@@ -99,9 +107,13 @@ export async function getImage(birdName) {
       birdName: birdName,
     };
 
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getImage`, data, {
-      responseType: "blob", // Set responseType to 'blob' to receive binary data
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/getImage`,
+      data,
+      {
+        responseType: "blob", // Set responseType to 'blob' to receive binary data
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -151,7 +163,10 @@ export async function saveComment(user, species_code, comment) {
       species_code: species_code,
       comment: comment,
     };
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/saveComment`, data);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENDPOINT_URL}/api/saveComment`,
+      data
+    );
 
     return response.data;
   } catch (error) {

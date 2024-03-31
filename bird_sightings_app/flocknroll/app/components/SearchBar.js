@@ -21,7 +21,7 @@ const SearchBar = ({ onSearch }) => {
   const defaultSearch = async (value) => {
     const response = await getBirdsByName(value);
     onSearch(response);
-  }
+  };
 
   useEffect(() => {
     defaultSearch(""); // Fetch search results with empty query on page load
@@ -40,11 +40,13 @@ const SearchBar = ({ onSearch }) => {
             id="searchByName"
             name="searchBy"
             value="name"
-            checked={searchBy === 'name'}
+            checked={searchBy === "name"}
             onChange={handleSearchByChange}
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          <label htmlFor="searchByName" className="ml-1">Bird Name</label>
+          <label htmlFor="searchByName" className="ml-1">
+            Bird Name
+          </label>
         </div>
         <div className="flex items-center">
           <input
@@ -52,11 +54,13 @@ const SearchBar = ({ onSearch }) => {
             id="searchByDescription"
             name="searchBy"
             value="description"
-            checked={searchBy === 'description'}
+            checked={searchBy === "description"}
             onChange={handleSearchByChange}
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          <label htmlFor="searchByDescription" className="ml-1">Bird Details</label>
+          <label htmlFor="searchByDescription" className="ml-1">
+            Bird Details
+          </label>
         </div>
       </div>
       <div className="flex justify-center">
@@ -66,7 +70,7 @@ const SearchBar = ({ onSearch }) => {
           placeholder="Search for birds..."
           value={query}
           onChange={handleSearch}
-          style={{ width: '500px' }}
+          style={{ width: "500px" }}
         />
       </div>
     </div>
