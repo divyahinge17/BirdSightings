@@ -34,9 +34,9 @@ export default function Main() {
                 Search By Bird
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              You can find the Birds by providing their Names. You will get to
-              see where the Birds were sighted and see their image and details.
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
+              You can find the Birds by providing their Name and Description. You will get to
+              see where the Birds were sighted, their image and details.
             </p>
             <a
               onClick={() => handleClickBirds()}
@@ -77,7 +77,7 @@ export default function Main() {
                 Search By Location
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400  text-justify">
               You can find the Birds by providing the Location. You will get to
               see list of Birds sighted within that location. After selecting
               bird you can see bird image and details.
