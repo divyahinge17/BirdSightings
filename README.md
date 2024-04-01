@@ -17,20 +17,51 @@ Our project focuses on analyzing bird sighting data from multiple sources to dra
 
 We utilize three primary datasets in our analysis:
 
-### Dataset Part 1: CornellLab FeederWatch Bird Sightings
+### Dataset Details 
 
-- **Description**: This dataset includes detailed records of bird sightings from the Cornell Lab of Ornithology's FeederWatch program, featuring species details, sighting locations, and latitude-longitude coordinates.
-- **Source**: [CornellLab FeederWatch Bird Sightings](https://feederwatch.org/explore/raw-dataset-requests/)
+![dataset details](readmeImages/dataset_details.png)
 
-### Dataset Part 2: Bird Names with Images
+### Data Sources 
 
-- **Description**: Comprising bird names accompanied by high-quality images, this dataset serves as a visual reference to enhance our understanding of the species observed in the FeederWatch data.
-- **Source**: [Bird Names with Images](https://dl.allaboutbirds.org/nabirds)
+![data sources](readmeImages/sources_details.png)
 
-### Dataset Part 3: State/County/ZIP Boundaries
+## Data processing and insertion:
 
-- **Description**: Geo polygons representing state, county, and ZIP boundaries are utilized to map bird sightings accurately to specific locations, aiding in spatial analysis.
-- **Source**: [State/County/ZIP Boundaries](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html)
+Data processing and insertion scripts can be found in `/scripts/data_insertion/`
+
+### Data Processing: 
+
+The following table summarizes the data processing and insertion details. it also covers the challenges faced and how they were mitigated. the script that performs the data insertion is present at `scripts/data_insertion/data_insertion.py`
+
+![sata insertion details](readmeImages/data_insertion.png)
+
+### Image Processing:
+
+
+## Database Schema:
+
+![Schema Diagram of collections](readmeImages/Schema.png)
+
+
+## Mongo Queries:
+
+
+## Mongo Security:
+
+The following diagram depicts the user, roles and collection level privilages that are configured for MongoDB to provide mimimal access.
+
+Note: The application accesses the MongoDB as `mongoapp` user and the privilages can be seen in the diageam below.
+
+![roles and users](readmeImages/roles_users.png)
+
+## App Architecture:
+
+
+## Interesting App Searches:
+
+
+## Bells and Whistles
+
 
 ## How to Use This Repository
 
@@ -113,4 +144,4 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 |                 | `password`           | String    | Password for user's account                            | `'12345'`                              |
 
 
-![Schema Diagram of collections](./Schema.png)
+![Schema Diagram of collections](readmeImages/Schema.png)
