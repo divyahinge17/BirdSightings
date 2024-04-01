@@ -38,24 +38,11 @@ const MyPage = () => {
       >
         <div style={{ display: "flex", alignItems: "flex-start" }}>
           <div style={{ marginRight: "50px" }}>
-            {!selectedBird ? (
-              <div className="flex justify-center">
-                <div className="max-w-lg mx-auto p-6">
-                  <SearchBar onSearch={handleSearch} />
-                  {searchResults && (
-                    <SearchResults
-                      birds={searchResults}
-                      onBirdClick={handleBirdClick}
-                    />
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div
+            <div
                 className="flex flex-wrap justify-center w-full p-6"
                 style={{ paddingLeft: "80px" }}
               >
-                <div className="w-full md:w-1/2">
+                <div className={selectedBird ? "w-full md:w-1/2": ""}>
                   <div className="max-w-lg mx-auto p-6">
                     <SearchBar onSearch={handleSearch} />
                   </div>
@@ -73,7 +60,6 @@ const MyPage = () => {
                   </div>
                 </div>
               </div>
-            )}
           </div>
         </div>
       </div>
