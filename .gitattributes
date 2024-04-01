@@ -7,3 +7,4 @@
 *.cpg filter=lfs diff=lfs merge=lfs -text
 *.shp.ea.iso.xml filter=lfs diff=lfs merge=lfs -text
 *.shp.iso.xml filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text

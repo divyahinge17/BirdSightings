@@ -1,15 +1,18 @@
+# Before running the script please install the required dependencies
+# pip install pandas geopandas pymongo tqdm
+
 import pandas as pd
 import geopandas as gpd
 from pymongo import MongoClient
 from tqdm import tqdm
 import time
-import json
 
 collections_path = {
     'sightings': '../../dataset/sightings/sightings_2021_2023.csv',
     'birds': '../../dataset/birds/birds_with_description.csv',
     'sites': '../../dataset/sites/sites.csv',
-    'states': '../../dataset/state_boundaries/states.shp',
+    'states': '../../dataset/state_boundaries_with_center/states.shp',
+    'states_lowres': '../../dataset/state_boundaries_low_res/states.shp',
     'counties': '../../dataset/county_boundaries/cb_2018_us_zcta510_500k.shp'
 }
 
@@ -18,6 +21,7 @@ columns_to_drop = {
     'birds': ['alt_full_spp_code', ' '],
     'sites': [],
     'states': [],
+    'states_lowres': [],
     'counties': []
 }
 
@@ -59,24 +63,26 @@ def insert_data(records, collection_name, batch_size):
 
 print("")
 
-# Inserting Data in `sightings` Collection
-print('starting data insertion for signtings collection...')
+# Inserting Data in sightings Collection
+print('starting data insertion for sightings collection...')
 collection_name = 'sightings'
 cols_to_drop  = columns_to_drop[collection_name]
 csv_path = collections_path[collection_name]
-chunk_size_csv_read = 1000000
+chunk_size_csv_read = 10000
 chunk_size_insert = 1000
 total_records = 0
 for chunk_records, current_chunk_size, current_chunk_number  in read_csv_in_chunks(csv_path, chunk_size_csv_read):
-    print('\nInserting Data in from csv chunk : {} with {} records into '.format(current_chunk_number, current_chunk_size) +collection_name+' Collection')
+    if current_chunk_number%500 == 0:
+        print('\nInserting Data in from csv chunk : {} with {} records into '.format(current_chunk_number, current_chunk_size) +collection_name+' Collection')
     insert_data(chunk_records, collection_name, chunk_size_insert)
     total_records += current_chunk_size
 print('Total Records inserted: ' + str(total_records))
 print("")
 
 #correction of geo poit geometry syntax
+print('Correcting of geo point geometry syntax in sightings...')
 client, collection = connect_to_mongo("sightings")
-result = sightings.update_many(
+result = collection.update_many(
    {},
    [
        {
@@ -195,18 +201,13 @@ for index, row in tqdm(df.iterrows()):
         description += ' Presence of {}.'.format(', '.join(presence_description))
     descriptions.append(description)
 df['description'] = descriptions
-
 columns_to_add = ['loc_id', 'latitude', 'longitude', 'proj_period_id', 'housing_density', 'population_atleast', 'count_area_size_sq_m_atleast']
 df = df[columns_to_add + ['description']]
-
 end_time = time.time()
 total_time = end_time - start_time
-
 print('Time Taken to Create Description: ' + str(total_time))
-
 print('\nConverting Dataframe to Dictionary...')
 records = df.to_dict('records')
-
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 print("")
@@ -216,14 +217,25 @@ print('starting data insertion for states collection...')
 print('Reading SHP...')
 collection_name = 'states'
 gdf = gpd.read_file(collections_path[collection_name])
-
 print('Total Records: ' + str(gdf.shape[0]))
 gdf = gdf.drop(columns_to_drop[collection_name], axis=1)
 gdf['geometry'] = gdf['geometry'].apply(lambda x: x.__geo_interface__)
-
 print('\nConverting Dataframe to Dictionary...')
 records = gdf.to_dict('records')
+print('\nInserting Data in ' + collection_name + ' Collection')
+insert_data(records, collection_name, 10000)
+print("")
 
+# Inserting Data in `states_lowres` Collection (low resolution version of boundaries)
+print('starting data insertion for states low resolution collection...')
+print('Reading SHP...')
+collection_name = 'states_lowres'
+gdf = gpd.read_file(collections_path[collection_name])
+print('Total Records: ' + str(gdf.shape[0]))
+gdf = gdf.drop(columns_to_drop[collection_name], axis=1)
+gdf['geometry'] = gdf['geometry'].apply(lambda x: x.__geo_interface__)
+print('\nConverting Dataframe to Dictionary...')
+records = gdf.to_dict('records')
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 print("")
@@ -233,15 +245,20 @@ print('starting data insertion for counties collection...')
 print('Reading SHP...')
 collection_name = 'counties'
 gdf = gpd.read_file(collections_path[collection_name])
-
 print('Total Records: ' + str(gdf.shape[0]))
 gdf = gdf.drop(columns_to_drop[collection_name], axis=1)
 gdf['geometry'] = gdf['geometry'].apply(lambda x: x.__geo_interface__)
-
 print('\nConverting Dataframe to Dictionary...')
 records = gdf.to_dict('records')
-
 print('\nInserting Data in ' + collection_name + ' Collection')
 insert_data(records, collection_name, 10000)
 
-
+print("\n Creating Indexes in Sightings Collection...")
+client, collection = connect_to_mongo("sightings")
+print("\n Creating Index on SPECIES_CODE...")
+collection.create_index({'SPECIES_CODE': 1})
+print("\n Creating Index on SUBNATIONAL1_CODE and SPECIES_CODE...")
+collection.create_index({'SUBNATIONAL1_CODE': 1, 'SPECIES_CODE': 1})
+print("\n Creating Index on location (2dsphere)...")
+collection.create_index({'location': "2dsphere"})
+print("\n Created Indexes for Sightings Collection...")
