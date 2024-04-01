@@ -42,7 +42,7 @@ const MyPage = () => {
                 className="flex flex-wrap justify-center w-full p-6"
                 style={{ paddingLeft: "80px" }}
               >
-                <div className={selectedBird ? "w-full md:w-1/2": ""}>
+                <div className={selectedBird ? "listheight md:w-1/2": ""}>
                   <div className="max-w-lg mx-auto p-6">
                     <SearchBar onSearch={handleSearch} />
                   </div>
