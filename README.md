@@ -37,6 +37,7 @@ The following table summarizes the data processing and insertion details. it als
 
 ### Image Processing:
 
+![alt text](readmeImages/image_processing.png)
 
 ## Database Schema:
 
@@ -58,6 +59,26 @@ Note: The application accesses the MongoDB as `mongoapp` user and the privilages
 
 
 ## Interesting App Searches:
+
+- Select Search By Bird 
+- In Bird Details-
+	- Serach for `western` and the list shows birds that include `western` in their description.
+	- Select a bird (e.g- `Acorn Woodpecker`) and check the map for sightings. Most sightings will be on west coast.
+	- Next, search for `smallest` in Bird Details, and the list presents small birds like Hummingbird (e.g- `Calliope Hummingbird`)
+	- More suggestions- Serach `eastern`, `tallest`, `florida`, `vision`.
+
+	- In Bird Name, search `Barred Owl` to see intresting insight that its sighted mostly on coasts.
+	- Similary, search `Costa's Hummingbird` to see its mostly sighted in around California.
+	More suggestions- Serach `Anhinga` - found near water, `White-winged Crossbill`, `Golden-cheeked Warbler` - found in Texas.
+
+- Select Search by Location
+    - Select a state (e.g- California) and search for Birds in that state.
+    - Search `Costa's Hummingbird` in California.
+    - Search `Eurasian Collared-Dove` in Colorado has lots of sightings.
+    - Hover over the markings on map to see `Year of Sightings`.
+
+- Comments
+    - If you comment for a bird you can view the comment in both Search by Location and Search by Birds.
 
 
 ## Bells and Whistles
