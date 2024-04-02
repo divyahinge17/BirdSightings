@@ -1,6 +1,7 @@
 # Flock & Roll
 
-Welcome to Flock & Roll's GitHub repository! Our team is dedicated to leveraging the power of data to enhance our understanding of bird sightings across various locations from USA. Through meticulous analysis and innovative techniques, we aim to uncover patterns and insights that contribute to the broader field of ornithology and data science.
+Welcome to Flock & Roll's GitHub repository!. Using our app, you can search for bird sightings either by location, their description and name.
+Enjoy the interactive geospatial functionality, images. Don't forget to leave  a comment on the bird you like.
 
 ## Team Members
 
@@ -9,43 +10,56 @@ Welcome to Flock & Roll's GitHub repository! Our team is dedicated to leveraging
 - **Divya Dilip, Hinge** (`@divyahinge17`)
 - **Onkar Eknath, Shelar** (`@Onkar2102`)
 
-## About The Project
-
-Our project focuses on analyzing bird sighting data from multiple sources to draw meaningful insights into bird species' migration patterns, population densities, and habitat preferences. By combining traditional data analysis methods with modern data science techniques, we aim to contribute valuable information to the birdwatching community and wildlife conservation efforts.
-
 ## Datasets
-
-We utilize three primary datasets in our analysis:
-
-### Dataset Details 
-
-![dataset details](readmeImages/dataset_details.png)
 
 ### Data Sources 
 
 ![data sources](readmeImages/sources_details.png)
 
-## Data processing and insertion:
+### Dataset Details 
+
+![dataset details](readmeImages/dataset_details.png)
+
+## Data Processing and Insertion:
 
 Data processing and insertion scripts can be found in `/scripts/data_insertion/`
 
 ### Data Processing: 
 
-The following table summarizes the data processing and insertion details. it also covers the challenges faced and how they were mitigated. the script that performs the data insertion is present at `scripts/data_insertion/data_insertion.py`
+The following table summarizes the data processing and insertion details. It also covers the challenges faced and how they were mitigated. The script that performs the data insertion is present at `scripts/data_insertion/data_insertion.py`. If not using the dump to restore, you can insert data using `python data_insertion.sh` (required libraries might need to installed using pip) 
 
 ![sata insertion details](readmeImages/data_insertion.png)
 
 ### Image Processing:
 
+The following table summarizes the image insertion details. it also covers the challenges faced and how they were mitigated. the script that performs the image insertion is present at `scripts/data_insertion/image_insertion.sh`. If not using the dump to restore, you can insert images using `bash image_insertion.sh` 
+
 ![alt text](readmeImages/image_processing.png)
 
-## Database Schema:
+## Database and Collection Details:
 
-![Schema Diagram of collections](readmeImages/Schema.png)
-
+- DB: flock
+- Collections: 
+    - sightings : 8394814 docuemnts
+    - birds : 1090 documents
+    - fs.files : 998 documents (bird images)
+    - states : 56 documents (state boundry polygons)
+    - sites : 284k docuemnts
+    - users : initially empty and grows 
+    - comments : initally empty and grows
+- Indexes:
+    - sightings -> ({SPECIES_CODE: 1})
+    - sightings -> ({SUBNATIONAL1_CODE: 1, SPECIES_CODE: 1});
+    - sightings -> ({location: "2dsphere"});
 
 ## Mongo Queries:
 
+All the queries for each functionality are present in the express rout functions located at
+`flocknroll/expressRoutes/routes.js`
+
+The following table provides an overview of spectrum of mongo queries used and description of functionality for which they were used.
+
+![alt text](readmeImages/queries_summary.png)
 
 ## Mongo Security:
 
@@ -55,21 +69,27 @@ Note: The application accesses the MongoDB as `mongoapp` user and the privilages
 
 ![roles and users](readmeImages/roles_users.png)
 
-## App Architecture:
+## Tech Stack:
 
+- Database : MongoDB
+- Frontend : Next.js
+- Backend : Express
+- RuntimeEnv: Node.js
 
 ## Interesting App Searches:
 
 - Select Search By Bird 
-- In Bird Details-
-	- Serach for `western` and the list shows birds that include `western` in their description.
-	- Select a bird (e.g- `Acorn Woodpecker`) and check the map for sightings. Most sightings will be on west coast.
-	- Next, search for `smallest` in Bird Details, and the list presents small birds like Hummingbird (e.g- `Calliope Hummingbird`)
-	- More suggestions- Serach `eastern`, `tallest`, `florida`, `vision`.
+    - Change radio button to Bird Name (to search by substring in bird name):
+        - search for any known or common bird (ex: Owl must give you all kinds of owls, or birds with owl in name)
+    - Change radio button to Bird Description (to search by anything from bird description.)
+        - Serach for `western` and the list shows birds that include `western` in their description.
+        - Select a bird (e.g- `Acorn Woodpecker`) and check the map for sightings. Most sightings will be on west coast.
+        - Next, search for `smallest` in Bird Details, and the list presents small birds like Hummingbird (e.g- `Calliope Hummingbird`)
+        - More suggestions- Serach `eastern`, `tallest`, `florida`, `vision`.
 
-	- In Bird Name, search `Barred Owl` to see intresting insight that its sighted mostly on coasts.
-	- Similary, search `Costa's Hummingbird` to see its mostly sighted in around California.
-	More suggestions- Serach `Anhinga` - found near water, `White-winged Crossbill`, `Golden-cheeked Warbler` - found in Texas.
+        - In Bird Name, search `Barred Owl` to see intresting insight that its sighted mostly on coasts.
+        - Similary, search `Costa's Hummingbird` to see its mostly sighted in around California.
+        More suggestions- Serach `Anhinga` - found near water, `White-winged Crossbill`, `Golden-cheeked Warbler` - found in Texas.
 
 - Select Search by Location
     - Select a state (e.g- California) and search for Birds in that state.
@@ -78,24 +98,35 @@ Note: The application accesses the MongoDB as `mongoapp` user and the privilages
     - Hover over the markings on map to see `Year of Sightings`.
 
 - Comments
-    - If you comment for a bird you can view the comment in both Search by Location and Search by Birds.
+    - If you comment for a bird you can view the comment in both Search by Location and Search by Birds flows.
 
 
 ## Bells and Whistles
+- We have built an interactive user interface. especially for the for the geospatial functionality. (ex: plot state geopolygons and make them interactive)
+- We have crunched huge volume of data (~8 million records)
+- Despite having little knowledge on tech stack (Next.js, Express) when we started, We took up the challege and we are satisfied with what we have done.
+- We have employed software development standards for collaboration and version control (ex: pull requests, dev and prod environments, pair programming, code reviews etc.) 
+- We explored pracical usecases related to mongoDB like client side data validation, access management.
+- Hosting both express and next.js on same port.
+- We feel we did a good job with the README.
 
+## Setup
 
-## How to Use This Repository
+### Database Setup:
+- To create the DB using Database Dump you will need to navigate to `datadump` directory.
+- Then you will use command `mongorestore --db flock --restoreDbUsersAndRoles --gzip flock`
+- This command will add all the required collections to `flock` DB and MongoDB Users with roles assigned to them.
+- You will need to enable the the authorization in `mongod.cnf` and restart the MongoDB Service to add authentication to MongoDB.
+- Once the above step is completed you can login to MongoDB using `mongosh --host localhost -u mongoapp -p huMONGOu5 --authenticationDatabase flock` Command.
 
-This repository contains the datasets, code, and analysis pertaining to our project. Here's how you can navigate through and make the most of our work:
-
-- `notebooks/`-
-    - Run `Data_Insertion_Script_v2.ipynb` for inserting data into flock database
-    - Run `ImageSelection.ipynb` for fetching one image per bird
-- `scripts/`: TBD
-    - Run `loc_geo_correction.js` for geo locations update
-    - Run `image_insertion.sh` to insert bird images into dataset.
-- `bird_sightings_app/flocknroll`:
-    - Add .env.local File in your bird_sightings_app/flocknroll directory and mention `NEXT_PUBLIC_ENDPOINT_URL=http://localhost:3000` to run App Locally.
+### Application Setup:
+- To start `Flock & Roll` application navigate to `flocknroll` directory.
+- Use `npm install` to install all the required dependencies.
+- Create `.env.local` File in `flocknroll` directory
+    - Add following Environment Variable for your local development:
+        - `NEXT_PUBLIC_ENDPOINT_URL=http://localhost:3000`
+- Now use `node server.js` to start the application.
+- Once all of the above steps are completed you will be able to access application on `http://localhost:3000`
 
 ## MongoDB Schema
 
@@ -167,20 +198,3 @@ This repository contains the datasets, code, and analysis pertaining to our proj
 
 ![Schema Diagram of collections](readmeImages/Schema.png)
 
-## Setup
-
-### Database Setup:
-- To create the DB using Database Dump you will need to navigate to `datadump` directory.
-- Then you will use command `mongorestore --db flock --restoreDbUsersAndRoles --gzip flock`
-- This command will add all the required collections to `flock` DB and MongoDB Users with roles assigned to them.
-- You will need to enable the the authorization in `mongod.cnf` and restart the MongoDB Service to add authentication to MongoDB.
-- Once the above step is completed you can login to MongoDB using `mongosh --host localhost -u mongoapp -p huMONGOu5 --authenticationDatabase flock` Command.
-
-### Application Setup:
-- To start `Flock & Roll` application navigate to `flocknroll` directory.
-- Use `npm install` to install all the required dependencies.
-- Create `.env.local` File in `flocknroll` directory
-    - Add following Environment Variable for your local development:
-        - `NEXT_PUBLIC_ENDPOINT_URL=http://localhost:3000`
-- Now use `node server.js` to start the application.
-- Once all of the above steps are completed you will be able to access application on `http://localhost:3000`
