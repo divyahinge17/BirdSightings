@@ -3,7 +3,7 @@ import React from "react";
 import Map from "@/app/components/MapLoc";
 import Navbar from "@/app/navbar/page";
 
-const LoginPage = () => {
+const LocationPage = () => {
   return (
     <div>
       <Navbar />
@@ -22,4 +22,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LocationPage;
