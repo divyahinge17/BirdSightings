@@ -21,6 +21,8 @@ Enjoy the interactive geospatial functionality and cool bird images. Don't forge
 
 ## Dataset
 
+The dataset within this repository contains approximately 8 million bird sightings across the United States, showcasing observations of 1,090 different bird species. 
+
 ### Data Sources 
 
 - TheCornellLab Feeder Watch Bird Sightings (2021-2023) - `https://feederwatch.org/explore/raw-dataset-requests/`
@@ -45,4 +47,10 @@ Enjoy the interactive geospatial functionality and cool bird images. Don't forge
 - Now use `node server.js` to start the application.
 - Once all of the above steps are completed you will be able to access application on `http://localhost:3000`
 
+
+## Application
+
+
+
+https://github.com/divyahinge17/BirdSightings/assets/111894899/21640bcc-bd31-4076-b5a7-ec2caf76fab1
 
