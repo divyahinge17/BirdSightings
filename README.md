@@ -20,6 +20,7 @@ Enjoy the interactive geospatial functionality and cool bird images. Don't forge
 - Node JS
 
 ## Dataset
+The dataset within this repository contains approximately 8 million bird sightings across the United States, showcasing observations of 1,090 different bird species. 
 
 ### Data Sources 
 
@@ -44,5 +45,10 @@ Enjoy the interactive geospatial functionality and cool bird images. Don't forge
         - `NEXT_PUBLIC_ENDPOINT_URL=http://localhost:3000`
 - Now use `node server.js` to start the application.
 - Once all of the above steps are completed you will be able to access application on `http://localhost:3000`
+
+## Application
+
+
+https://github.com/divyahinge17/BirdSightings/assets/111894899/28d777ed-c35d-4b18-b515-a31783ae5711
 
 
