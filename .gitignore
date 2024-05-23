@@ -4,7 +4,8 @@
 .DS_Store
 node_modules/
 __pycache__/
+notebooks/
 
 **/.env.local
 **/package-lock.json
-notebooks/
+
