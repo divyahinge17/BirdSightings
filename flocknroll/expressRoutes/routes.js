@@ -3,7 +3,8 @@ import { MongoClient, GridFSBucket } from "mongodb";
 const router = express.Router();
 
 // change this to desired username and password 
-const client = new MongoClient("mongodb://mongoapp:huMONGOu5@localhost:27017/flock", {
+//While running application manually update below client to "mongodb://mongoapp:huMONGOu5@localhost:27017/flock"
+const client = new MongoClient("mongodb://mongoapp:huMONGOu5@mongodb:27017/flock", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

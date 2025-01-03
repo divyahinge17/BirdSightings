@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "flocknroll": "file:",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "mongodb": "^6.5.0",
@@ -22,10 +26,7 @@
     "react-dom": "^18",
     "react-google-charts": "^4.0.1",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.22.3",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "express": "^4.19.1"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

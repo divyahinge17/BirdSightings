@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7.0.5
+    container_name: birdsightings-mongodb
+    volumes:
+      - ./datadump/flock:/flock
+      - ./mongorestore.sh:/docker-entrypoint-initdb.d/mongorestore.sh
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoapp
+      MONGO_INITDB_ROOT_PASSWORD: huMONGOu5
+      MONGO_INITDB_DATABASE: flock
+    ports:
+      - "27017:27017"
+
+
+  backend:
+    build: ./flocknroll
+    environment:
+      NEXT_PUBLIC_ENDPOINT_URL: http://localhost:3000
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+    depends_on:
+      - mongodb

@@ -52,6 +52,7 @@ function Login() {
             height={100}
             alt="Login GIF"
             priority={true}
+            unoptimized
           />
         </div>
       ) : null}
