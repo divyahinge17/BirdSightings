@@ -1,0 +1,1 @@
+mongorestore --db flock --nsInclude=flock.* --restoreDbUsersAndRoles --username mongoapp --password huMONGOu5 --authenticationDatabase admin --gzip flock
