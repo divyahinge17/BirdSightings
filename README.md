@@ -30,16 +30,23 @@ The dataset within this repository contains approximately 8 million bird sightin
 
 ## Setup
 
-### Database Setup:
+### Docker Setup:
+- To spin up complete application run `docker-compose up` in BirdSightings directory.
+- Once all containers are created and running successfully, access the application on `http://localhost:3000`
+- Use `docker-copose down` to shutdown containers.
+
+### Manual Setup:
+#### Database:
 - To create the DB using Database Dump you will need to navigate to `datadump` directory.
 - Then you will use command `mongorestore --db flock --restoreDbUsersAndRoles --gzip flock`
 - This command will add all the required collections to `flock` DB and MongoDB Users with roles assigned to them.
 - You will need to enable the the authorization in `mongod.cfg` and restart the MongoDB Service to add authentication to MongoDB.
 - Once the above step is completed you can login to MongoDB using `mongosh --host localhost -u mongoapp -p huMONGOu5 --authenticationDatabase flock` Command.
 
-### Application Setup:
+#### Application:
 - To start `Flock & Roll` application navigate to `flocknroll` directory.
 - Use `npm install` to install all the required dependencies.
+- Update Mongoclient to `mongodb://mongoapp:huMONGOu5@localhost:27017/flock` in `flocknroll/expressRoutes/routes.js` file. 
 - Create `.env.local` File in `flocknroll` directory
     - Add following Environment Variable for your local development:
         - `NEXT_PUBLIC_ENDPOINT_URL=http://localhost:3000`
@@ -50,5 +57,12 @@ The dataset within this repository contains approximately 8 million bird sightin
 
 
 https://github.com/divyahinge17/BirdSightings/assets/111894899/28d777ed-c35d-4b18-b515-a31783ae5711
+
+
+## Application
+
+https://github.com/divyahinge17/BirdSightings/assets/111894899/28d777ed-c35d-4b18-b515-a31783ae5711
+
+
 
 
