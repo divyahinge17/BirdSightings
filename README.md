@@ -31,9 +31,10 @@ The dataset within this repository contains approximately 8 million bird sightin
 ## Setup
 
 ### Docker Setup:
-- To spin up complete application run `docker-compose up` in BirdSightings directory.
-- Once all containers are created and running successfully, access the application on `http://localhost:3000`
-- Use `docker-copose down` to shutdown containers.
+- To spin up complete application run `docker-compose up mongodb`
+- Once mongodb container is up and running execute `docker-compose up backend`
+- After both containers are created and running successfully, access the application on `http://localhost:3000`
+- Use `docker-copose down` to shutdown the containers.
 
 ### Manual Setup:
 #### Database:
@@ -55,13 +56,8 @@ The dataset within this repository contains approximately 8 million bird sightin
 
 ## Application
 
-
 https://github.com/divyahinge17/BirdSightings/assets/111894899/28d777ed-c35d-4b18-b515-a31783ae5711
 
-
-## Application
-
-https://github.com/divyahinge17/BirdSightings/assets/111894899/28d777ed-c35d-4b18-b515-a31783ae5711
 
 
 
